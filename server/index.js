@@ -7,6 +7,10 @@ const app = express()
 const config = require('../nuxt.config.js')
 config.dev = process.env.NODE_ENV !== 'production'
 
+const login = require('./login')
+
+app.use('/login', login)
+
 async function start () {
   // Init Nuxt.js
   const nuxt = new Nuxt(config)
@@ -20,6 +24,12 @@ async function start () {
   } else {
     await nuxt.ready()
   }
+  app.all('*', function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+  });
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
