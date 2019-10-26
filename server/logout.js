@@ -3,9 +3,10 @@ const router = express.Router();
 const libs = require('./lib');
 let lib = new libs();
 
-router.post('/', function(req, res, next) {
-	req.session.save();
-
+router.post('/', (req, res, next)=>{
+	req.session.destroy( (err)=>{
+		// cannot access session here
+	});
 	lib.rtn = {
 		success: true,
 		data : {

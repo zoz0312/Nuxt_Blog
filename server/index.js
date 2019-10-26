@@ -6,6 +6,19 @@ const app = express();
 const exec = require('child_process').exec;
 const fs = require('file-system');
 const logger = require('morgan');
+const session = require('express-session');
+
+const sess = {
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    path: '/',
+    secure: true,
+    maxAge: 1000 * 60 * 30 // 30Min
+  },
+  name: 'admin'
+}
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js');
@@ -15,11 +28,15 @@ app.use(logger(':remote-addr\t - [:date[iso]] ":method" ":url HTTP/:http-version
   stream: fs.createWriteStream('./access.log', {flags: 'a'})
 }));
 app.use(logger('dev'));
+app.use(session(sess))
 
 
 /*===== S:Middle Ware =====*/
 const login = require('./login');
+const logout = require('./logout');
+
 app.use('/login', login);
+app.use('/logout', logout);
 /*===== E:Middle Ware =====*/
 
 

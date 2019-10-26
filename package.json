@@ -17,6 +17,7 @@
     "child_process": "^1.0.2",
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
+    "express-session": "^1.17.0",
     "file-system": "^2.2.2",
     "logger": "0.0.1",
     "morgan": "^1.9.1",
