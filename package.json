@@ -20,6 +20,7 @@
     "express-session": "^1.17.0",
     "file-system": "^2.2.2",
     "logger": "0.0.1",
+    "mongoose": "^5.7.7",
     "morgan": "^1.9.1",
     "nuxt": "^2.0.0"
   },

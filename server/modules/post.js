@@ -1,5 +1,5 @@
 const post_middleware = (req, res, next) => {
-	req.post = () => {
+	req.post = (key_) => {
 		if(req.body){
 			const keys = Object.keys(req.body);
 			let rtn = {};
@@ -9,6 +9,8 @@ const post_middleware = (req, res, next) => {
 				}
 			}
 		}
+		next();
 	}
+	next();
 }
 module.exports = post_middleware;

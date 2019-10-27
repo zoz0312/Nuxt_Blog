@@ -1,12 +1,15 @@
 const express = require('express');
 const consola = require('consola');
 const { Nuxt, Builder } = require('nuxt');
+const mongoose = require('mongoose');
 const app = express();
 
 const exec = require('child_process').exec;
 const fs = require('file-system');
 const logger = require('morgan');
 const session = require('express-session');
+
+const post_middle = require('./modules/post');
 
 const sess = {
   secret: 'keyboard cat',
@@ -24,21 +27,32 @@ const sess = {
 const config = require('../nuxt.config.js');
 config.dev = process.env.NODE_ENV !== 'production';
 
+/*===== S:Node Modules =====*/
 app.use(logger(':remote-addr\t - [:date[iso]] ":method" ":url HTTP/:http-version" :status :res[content-length]', {
   stream: fs.createWriteStream('./access.log', {flags: 'a'})
 }));
 app.use(logger('dev'));
-app.use(session(sess))
+app.use(session(sess));
+/*===== E:Node Modules =====*/
 
+app.use(post_middle);
+
+/*===== S:DB Connection =====*/
+var db = mongoose.connection;
+db.on('error', console.error);
+db.once('open', function(){
+    console.log("Connected to mongod server");
+});
+mongoose.connect('mongodb://localhost:27017/aju_blog', { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+/*===== E:DB Connection =====*/
 
 /*===== S:Middle Ware =====*/
-const login = require('./login');
-const logout = require('./logout');
+const login = require('./routes/login');
+const logout = require('./routes/logout');
 
 app.use('/login', login);
 app.use('/logout', logout);
 /*===== E:Middle Ware =====*/
-
 
 async function start () {
   // Init Nuxt.js
