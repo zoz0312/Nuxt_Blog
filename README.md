@@ -20,3 +20,15 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+## Build Setup
+config.json
+``` bash
+{
+	"server":{
+		"id": "",			//user id
+		"pw": "", 		//user password
+		"db_url":""		//database url
+	}
+}
+```

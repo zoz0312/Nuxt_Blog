@@ -26,6 +26,7 @@ const sess = {
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js');
 config.dev = process.env.NODE_ENV !== 'production';
+const server_config = require('/home/ahnhc/config.json');
 
 /*===== S:Node Modules =====*/
 app.use(logger(':remote-addr\t - [:date[iso]] ":method" ":url HTTP/:http-version" :status :res[content-length]', {
@@ -43,7 +44,7 @@ db.on('error', console.error);
 db.once('open', function(){
     console.log("Connected to mongod server");
 });
-mongoose.connect('mongodb://localhost:27017/aju_blog', { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect(server_config.server.db_url, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
 /*===== E:DB Connection =====*/
 
 /*===== S:Middle Ware =====*/
