@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
     title : Category TOP title
 */
 const categoryTopSchema = new Schema({
-    id: mongoose.Schema.Types.ObjectId,
-    title: String
+    _id: Number,
+    title: String,
+    mid: [{ type: Schema.Types.ObjectId, ref: 'Mid' }]
 });
 module.exports = mongoose.model('md_category_top', categoryTopSchema);

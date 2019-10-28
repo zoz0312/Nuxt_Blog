@@ -10,7 +10,7 @@ const Schema = mongoose.Schema;
     categoryId : Category Mid ID
 */
 const writingSchema = new Schema({
-    id: mongoose.Schema.Types.ObjectId,
+    _id: { type:Number, default: 0 },
     title: String,
     content: String,
     writer: String,
