@@ -4,6 +4,7 @@ const { Nuxt, Builder } = require('nuxt');
 const mongoose = require('mongoose');
 const app = express();
 
+const bodyParser = require('body-parser');
 const exec = require('child_process').exec;
 const fs = require('file-system');
 const logger = require('morgan');
@@ -29,6 +30,7 @@ config.dev = process.env.NODE_ENV !== 'production';
 const server_config = require('/home/ahnhc/config.json');
 
 /*===== S:Node Modules =====*/
+app.use(bodyParser.json());
 app.use(logger(':remote-addr\t - [:date[iso]] ":method" ":url HTTP/:http-version" :status :res[content-length]', {
   stream: fs.createWriteStream('./access.log', {flags: 'a'})
 }));
@@ -50,9 +52,11 @@ mongoose.connect(server_config.server.db_url, { useUnifiedTopology: true, useNew
 /*===== S:Middle Ware =====*/
 const login = require('./routes/login');
 const logout = require('./routes/logout');
+const write = require('./routes/write');
 
 app.use('/login', login);
 app.use('/logout', logout);
+app.use('/write', write);
 /*===== E:Middle Ware =====*/
 
 async function start () {

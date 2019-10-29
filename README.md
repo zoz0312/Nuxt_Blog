@@ -21,13 +21,12 @@ $ npm run generate
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
 
-## Build Setup
-> config.json
-Must setting server config
-``` bash
+## config.json
+> Must setting server config
+``` json
 {
 	"server":{
-		"id": "",			//user id
+		"id": "",		//user id
 		"pw": "", 		//user password
 		"db_url":""		//database url
 	}

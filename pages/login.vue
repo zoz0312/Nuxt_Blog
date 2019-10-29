@@ -33,20 +33,20 @@
 import '~/mixin/global_mixin'
 
 export default {
-  layout: 'login',
-  data: () => ({
-    name: '',
-    email: ''
-  }),
+	layout: 'login',
+	data: () => ({
+		name: '',
+		email: ''
+	}),
 
-  methods: {
-    login () {
-      this.$http.post('/login').then((result) => {
-        console.log('result', result.data)
-      }).catch((error) => {
-        console.log('error', error)
-      });
-    }
-  }
+	methods: {
+		login () {
+			this.$http.post('/login').then((result) => {
+				console.log('result', result.data)
+			}).catch((error) => {
+				console.log('error', error)
+			});
+		}
+	}
 }
 </script>

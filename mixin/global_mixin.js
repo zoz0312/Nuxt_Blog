@@ -3,9 +3,9 @@ import axios from 'axios'
 Vue.prototype.$http = axios
 
 Vue.mixin({
-  methods: {
-    sum: () => {
-      return true;
-    }
-  }
+	methods: {
+		sum: () => {
+			return true;
+		}
+	}
 });
