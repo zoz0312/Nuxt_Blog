@@ -14,15 +14,13 @@ router.get('/', (req, res, next) => {
 			succ_desc: ''
 		}
 		console.log('write',write);
-		const obj = lib.rtn_result();
-		res.send(obj);
+		res.send(lib.rtn_result());
 		//res.end();
-	}).catch(err =>{
+	}).catch(err => {
 		lib.rtn = {
 			err_desc: err
 		}
-		const obj = lib.rtn_result();
-		res.send(obj);
+		res.send(lib.rtn_result());
 		//res.end();
 	});
 });

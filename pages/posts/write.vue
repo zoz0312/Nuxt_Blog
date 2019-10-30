@@ -16,9 +16,6 @@
 			block
 			@click="write"
 		>작성하기</v-btn>
-		<v-item>
-		{{ item }}
-		</v-item>
 	</v-card>
 	</template>
 
@@ -30,16 +27,8 @@ export default {
 		return {
 			title: '',
 			contents: '',
-			console: '',
-			item: {}
+			console: ''
 		}
-	},
-	beforeCreate () {
-		this.$http.get('/write').then((result) => {
-			this.item = Object.assign({}, result.data.data);
-		}).catch((err) => {
-			console.log('err', err);
-		})
 	},
 	methods: {
 		write () {
