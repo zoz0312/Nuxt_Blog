@@ -11,11 +11,10 @@ const Schema = mongoose.Schema;
     id : 고유값
     title : Category TOP title
 */
-const md = lib.db_auto_increment('md_category_top');
-const categoryTopSchema = new Schema({
-    _id: Number,
-    title: String,
-    mid: [{ type: Schema.Types.ObjectId, ref: 'Mid' }]
+const md = lib.db_auto_increment('md_category');
+const categorySchema = new Schema({
+    _id: { type:Number, default: 0 },
+    title: String
 });
-categoryTopSchema.plugin( auto_increment.plugin, md );
-module.exports = mongoose.model(md.model, categoryTopSchema);
+categorySchema.plugin( auto_increment.plugin, md );
+module.exports = connection.model(md.model, categorySchema);

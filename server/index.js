@@ -53,10 +53,12 @@ db.once('open', function(){
 const login = require('./routes/login');
 const logout = require('./routes/logout');
 const write = require('./routes/write');
+const category = require('./routes/category');
 
 app.use('/login', login);
 app.use('/logout', logout);
 app.use('/write', write);
+app.use('/category', category);
 /*===== E:Middle Ware =====*/
 
 async function start () {
