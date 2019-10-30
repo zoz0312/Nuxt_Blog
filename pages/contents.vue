@@ -1,29 +1,30 @@
 <template>
-	<v-card
-		class="mx-auto pa-5"
-		max-width="800"
-	>
-		<div class="mt-12 text-center">
-			Value: {{ item }}
+	<v-container>
+		<div v-for="item in items" v-bind:key="item._id">
+		<Card v-bind:propsdata="item"></Card>
 		</div>
-	</v-card>
-	</template>
+	</v-container>
+</template>
 
 <script>
 import '~/mixin/global_mixin'
+import Card from '../layouts/card';
 
 export default {
 	data () {
 		return {
-			item: null
+			items: []
 		}
 	},
 	mounted () {
 		this.$http.get('/write').then((result) => {
-			this.item = Object.assign({}, result.data.data);
+			this.items = Object.assign({}, result.data.data);
 		}).catch((err) => {
 			console.log('err', err);
 		})
+	},
+	components: {
+		Card
 	}
 }
 </script>
