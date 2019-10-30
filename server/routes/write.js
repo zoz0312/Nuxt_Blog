@@ -1,24 +1,31 @@
 const express = require('express');
 const router = express.Router();
+
 const libs = require('../modules/lib');
 let lib = new libs();
 
 const writing = require('../../models/writing');
 
 router.get('/', (req, res, next) => {
-	//TODO json Find
-	//item: this.$http.get('/write')
-	lib.rtn = {
-		data: writing.find({}),
-		success: true,
-		succ_desc: ''
-	}
-	const obj = lib.rtn_result();
-	res.end(obj);
+	writing.find({}).then(write => {
+		lib.rtn = {
+			data: write,
+			success: true,
+			succ_desc: ''
+		}
+		const obj = lib.rtn_result();
+		res.send(obj);
+	}).catch(err =>{
+		lib.rtn = {
+			err_desc: err
+		}
+		const obj = lib.rtn_result();
+		res.send(obj);
+	});
 });
 router.post('/', (req, res, next) => {
 	const schm = new writing();
-	schm._id = 0;
+	schm._id = 1;
 	schm.title = req.body.title;
 	schm.content = req.body.contents;
 	schm.writer = 'zoz0312 (AJu)';
@@ -35,6 +42,6 @@ router.post('/', (req, res, next) => {
 		success: true,
 		succ_desc: ''
 	}
-	res.end(lib.rtn_result());
+	res.send(lib.rtn_result());
 });
 module.exports = router;

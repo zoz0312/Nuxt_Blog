@@ -15,7 +15,10 @@
 			class="mr-4"
 			block
 			@click="write"
-		>작성하기{{ console }}</v-btn>
+		>작성하기</v-btn>
+		<v-item>
+		{{ item }}
+		</v-item>
 	</v-card>
 	</template>
 
@@ -27,8 +30,16 @@ export default {
 		return {
 			title: '',
 			contents: '',
-			console: ''
+			console: '',
+			item: {}
 		}
+	},
+	beforeCreate () {
+		this.$http.get('/write').then((result) => {
+			this.item = Object.assign({}, result.data.data);
+		}).catch((err) => {
+			console.log('err', err);
+		})
 	},
 	methods: {
 		write () {
@@ -39,8 +50,8 @@ export default {
 			this.console = d;
 			this.$http.post('/write', d).then((result) => {
 				console.log('result', result.data)
-			}).catch((error) => {
-				console.log('error', error)
+			}).catch((err) => {
+				console.log('err', err)
 			});
 		}
 	}
