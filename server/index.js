@@ -2,6 +2,7 @@ const express = require('express');
 const consola = require('consola');
 const { Nuxt, Builder } = require('nuxt');
 const mongoose = require('mongoose');
+const auto_increment = require('mongoose-auto-increment');
 const app = express();
 
 const bodyParser = require('body-parser');
@@ -46,7 +47,6 @@ db.on('error', console.error);
 db.once('open', function(){
     console.log("Connected to mongod server");
 });
-mongoose.connect(server_config.server.db_url, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
 /*===== E:DB Connection =====*/
 
 /*===== S:Middle Ware =====*/

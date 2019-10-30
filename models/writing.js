@@ -1,4 +1,11 @@
 const mongoose = require('mongoose');
+const auto_increment = require('mongoose-auto-increment');
+const libs = require('../server/modules/lib');
+let lib = new libs();
+
+const connection = mongoose.createConnection(lib.db_url(), lib.db_config());
+auto_increment.initialize(connection);
+
 const Schema = mongoose.Schema;
 /*
     id : 고유값
@@ -9,6 +16,7 @@ const Schema = mongoose.Schema;
     count : 방문 횟수
     categoryId : Category Mid ID
 */
+const md = lib.db_auto_increment('md_wrtiing');
 const writingSchema = new Schema({
     _id: { type:Number, default: 0 },
     title: String,
@@ -18,4 +26,5 @@ const writingSchema = new Schema({
     count: { type:Number, default:0 },
     categoryId: { type:Number, default:0 }
 });
-module.exports = mongoose.model('md_wrtiing', writingSchema);
+writingSchema.plugin( auto_increment.plugin, md );
+module.exports = connection.model(md.model, writingSchema);

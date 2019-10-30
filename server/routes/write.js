@@ -13,31 +13,29 @@ router.get('/', (req, res, next) => {
 			success: true,
 			succ_desc: ''
 		}
+		console.log('write',write);
 		const obj = lib.rtn_result();
 		res.send(obj);
+		//res.end();
 	}).catch(err =>{
 		lib.rtn = {
 			err_desc: err
 		}
 		const obj = lib.rtn_result();
 		res.send(obj);
+		//res.end();
 	});
 });
 router.post('/', (req, res, next) => {
 	const schm = new writing();
-	schm._id = 1;
+	//schm._id = 1;
 	schm.title = req.body.title;
 	schm.content = req.body.contents;
 	schm.writer = 'zoz0312 (AJu)';
 	schm.createDate = new Date();
 	schm.save( (err, writing) => {
 		if( err ) return console.error(err);
-		console.log(writing);
 	});
-	// writing.find({ question: 'qustion'}, (err, user) => {
-  //   console.log('user',user);
-  //   res.json({ user: user });
-	// });
 	lib.rtn = {
 		success: true,
 		succ_desc: ''

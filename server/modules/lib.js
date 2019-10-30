@@ -1,3 +1,5 @@
+const server_config = require('/home/ahnhc/config.json');
+
 function lib(){
 	this.rtn = {
 		success:false,
@@ -13,5 +15,19 @@ function lib(){
 		this.rtn.err_desc = '';
 		return rtn_tmp;
 	};
+	this.db_url = () => {
+		return server_config.server.db_url
+	};
+	this.db_config = () => {
+		return { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false };
+	}
+	this.db_auto_increment = model => {
+		return {
+			model: model,
+			field: '_id',
+			startAt: 1,
+			increment : 1
+		};
+	}
 }
 module.exports = lib;
