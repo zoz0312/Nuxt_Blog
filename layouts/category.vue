@@ -28,10 +28,8 @@ export default {
 	},
 	methods: {
 		get_category_id () {
-			let cateIdObj;
 			this.$http.post('/category/' + this.propsdata.post).then((result) => {
-				cateIdObj = Object.assign({}, result.data.data);
-				this.title = cateIdObj.title;
+				this.title = result.data.data.title;
 			}).catch((err) => {
 				console.log('err', err);
 			})
@@ -40,7 +38,6 @@ export default {
 			const d = {
 				title: this.title
 			};
-			this.console = d;
 			this.$http.post('/category/' + this.propsdata.type, d).then((result) => {
 				console.log('result', result.data)
 			}).catch((err) => {

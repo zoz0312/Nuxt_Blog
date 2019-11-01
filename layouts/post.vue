@@ -38,8 +38,7 @@ export default {
 			contents: '',
 			dropdown_edit: [],
 			category_id: [],
-			category: '',
-			items: {}
+			category: ''
 		}
 	},
 	mounted () {
@@ -62,10 +61,12 @@ export default {
 		},
 		write () {
 			const d = {
+				_id: this.propsdata.post ? this.propsdata.post : 0,
 				title: this.title,
 				contents: this.contents,
 				category_id: this.category_id[this.dropdown_edit.indexOf(this.category)]
 			};
+			d._id = parseInt(d._id, 10);
 			this.$http.post('/post/' + this.propsdata.type, d).then((result) => {
 				console.log('result', result.data)
 			}).catch((err) => {
@@ -74,10 +75,9 @@ export default {
 		},
 		get_post () {
 			this.$http.post('/post/' + this.propsdata.post).then((result) => {
-				this.items = Object.assign({}, result.data.data);
-				this.title = this.items.title;
-				this.contents = this.items.content;
-				this.category = this.dropdown_edit[this.category_id.indexOf(this.items.categoryId)];
+				this.title = result.data.data.title;
+				this.contents = result.data.data.content;
+				this.category = this.dropdown_edit[this.category_id.indexOf(result.data.data.categoryId)];
 			}).catch((err) => {
 				console.log('err', err);
 			})
