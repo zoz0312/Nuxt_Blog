@@ -32,18 +32,19 @@ router.post('/', (req, res, next) => {
 	schm.writer = 'zoz0312 (AJu)';
 	schm.createDate = new Date();
 	schm.categoryId = req.body.category_id;
-	schm.save( (err, category) => {
+	schm.save( (err, schm) => {
 		if( err ) return console.error(err);
 		lib.rtn = {
 			success: true,
 			succ_desc: ''
 		}
+		console.log('schm', schm);
 		res.send(lib.rtn_result());
 		res.end();
 	});
 });
 router.post('/:contents', (req, res, next) => {
-	writing.find({'_id':req.params.contents}).then(write => {
+	writing.find({'categoryId':req.params.contents}).then(write => {
 		lib.rtn = {
 			data: write,
 			success: true,

@@ -5,6 +5,7 @@
 		</div>
         <div>
             Contents: {{ contents }}
+						items: {{ items }}
         </div>
 	</v-container>
 </template>

@@ -66,7 +66,7 @@ export default {
 				contents: this.contents,
 				category_id: this.category_id[this.dropdown_edit.indexOf(this.category)]
 			};
-			this.$http.post('/write', d).then((result) => {
+			this.$http.post('/posts', d).then((result) => {
 				console.log('result', result.data)
 			}).catch((err) => {
 				console.log('err', err)
