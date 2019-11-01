@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import '~/mixin/global_mixin'
 import Card from '../../layouts/card';
 
 export default {
@@ -22,11 +21,16 @@ export default {
 		}
 	},
 	mounted () {
-		this.$http.post('/list/' + this.contents).then((result) => {
-			this.items = Object.assign({}, result.data.data);
-		}).catch((err) => {
-			console.log('err', err);
-		})
+		this.get_post_list();
+	},
+	methods: {
+		get_post_list () {
+			this.$http.post('/list/' + this.contents).then((result) => {
+				this.items = Object.assign({}, result.data.data);
+			}).catch((err) => {
+				console.log('err', err);
+			});
+		}
 	},
 	components: {
 		Card

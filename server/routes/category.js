@@ -22,7 +22,7 @@ router.post('/', (req, res, next) => {
 	});
 });
 
-router.post('/add', (req, res, next) => {
+router.post('/create', (req, res, next) => {
 	const schm = new category();
 	schm.title = req.body.title;
 	schm.save( (err, category) => {
@@ -54,6 +54,29 @@ router.post('/update', (req, res, next) => {
 			res.send(lib.rtn_result());
 			res.end();
 		});
+	}).catch(err => {
+		lib.rtn = {
+			err_desc: err
+		};
+		res.send(lib.rtn_result());
+		res.end();
+	});
+});
+
+router.delete('/', (req, res, next) => {
+	category.remove({ _id: req.body._id }).then( del_category => {
+		if( err ){
+			lib.rtn = {
+				err_desc: 'Save Fail\n' + err
+			};
+		} else {
+			lib.rtn = {
+				success: true,
+				succ_desc: 'Delete success\n' + del_category
+			};
+		}
+		res.send(lib.rtn_result());
+		res.end();
 	}).catch(err => {
 		lib.rtn = {
 			err_desc: err

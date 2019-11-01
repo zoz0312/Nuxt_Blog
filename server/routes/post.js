@@ -6,7 +6,7 @@ let lib = new libs();
 
 const writing = require('../../models/writing');
 
-router.post('/add', (req, res, next) => {
+router.post('/create', (req, res, next) => {
 	const schm = new writing();
 	schm.title = req.body.title;
 	schm.content = req.body.contents;
@@ -44,6 +44,29 @@ router.post('/update', (req, res, next) => {
 			res.send(lib.rtn_result());
 			res.end();
 		});
+	}).catch(err => {
+		lib.rtn = {
+			err_desc: err
+		};
+		res.send(lib.rtn_result());
+		res.end();
+	});
+});
+
+router.delete('/', (req, res, next) => {
+	writing.remove({ _id: req.body._id }).then( del_writing => {
+		if( err ){
+			lib.rtn = {
+				err_desc: 'Save Fail\n' + err
+			};
+		} else {
+			lib.rtn = {
+				success: true,
+				succ_desc: 'Delete success\n' + del_writing
+			};
+		}
+		res.send(lib.rtn_result());
+		res.end();
 	}).catch(err => {
 		lib.rtn = {
 			err_desc: err

@@ -16,7 +16,7 @@ const Schema = mongoose.Schema;
 	count : 방문 횟수
 	categoryId : Category Mid ID
 */
-const md = lib.db_auto_increment('md_wrtiing');
+const md = lib.db_auto_increment('md_writting');
 const writingSchema = new Schema({
 	_id: { type:Number, default: 0 },
 	title: String,

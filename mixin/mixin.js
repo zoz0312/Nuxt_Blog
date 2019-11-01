@@ -8,7 +8,6 @@ let mixin = {
    // console.log('mixin')
   },
   methods:{
-    
   }
 };
 export default mixin;
