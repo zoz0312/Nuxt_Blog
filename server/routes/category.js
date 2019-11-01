@@ -36,4 +36,31 @@ router.post('/add', (req, res, next) => {
 		res.send(lib.rtn_result());
 	});
 });
+
+router.post('/update', (req, res, next) => {
+	lib.rtn = {
+		success: true,
+		succ_desc: 'test update'
+	}
+	res.send(lib.rtn_result());
+});
+
+router.post('/:categoryId', (req, res, next) => {
+	category.findOne({'_id':req.params.categoryId}).then(category => {
+		lib.rtn = {
+			data: category,
+			success: true,
+			succ_desc: ''
+		}
+		console.log('category',category);
+		res.send(lib.rtn_result());
+		res.end();
+	}).catch(err => {
+		lib.rtn = {
+			err_desc: err
+		}
+		res.send(lib.rtn_result());
+		res.end();
+	});
+});
 module.exports = router;

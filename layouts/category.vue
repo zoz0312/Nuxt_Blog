@@ -23,7 +23,19 @@ export default {
 			title: ''
 		}
 	},
+	mounted () {
+		this.get_category_id();
+	},
 	methods: {
+		get_category_id () {
+			let cateIdObj;
+			this.$http.post('/category/' + this.propsdata.post).then((result) => {
+				cateIdObj = Object.assign({}, result.data.data);
+				this.title = cateIdObj.title;
+			}).catch((err) => {
+				console.log('err', err);
+			})
+		},
 		write () {
 			const d = {
 				title: this.title

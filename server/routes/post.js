@@ -25,6 +25,14 @@ router.post('/add', (req, res, next) => {
 	});
 });
 
+router.post('/update', (req, res, next) => {
+	lib.rtn = {
+		success: true,
+		succ_desc: 'test update'
+	}
+	res.send(lib.rtn_result());
+});
+
 router.post('/:post', (req, res, next) => {
 	writing.findOne({'_id':req.params.post}).then(write => {
 		lib.rtn = {

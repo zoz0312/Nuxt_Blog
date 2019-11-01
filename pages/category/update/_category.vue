@@ -12,7 +12,7 @@ export default {
 			info: {
 				type: 'update',
 				btn_text: '수정하기',
-				post: params.post
+				post: params.category
 			}
 		}
 	},
