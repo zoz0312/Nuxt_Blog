@@ -25,7 +25,7 @@ export default {
 		}
 	},
 	mounted () {
-		this.$http.get('/write').then((result) => {
+		this.$http.post('/posts/' + this.contents).then((result) => {
 			this.items = Object.assign({}, result.data.data);
 		}).catch((err) => {
 			console.log('err', err);

@@ -52,12 +52,12 @@ db.once('open', function(){
 /*===== S:Middle Ware =====*/
 const login = require('./routes/login');
 const logout = require('./routes/logout');
-const write = require('./routes/write');
+const posts = require('./routes/posts');
 const category = require('./routes/category');
 
 app.use('/login', login);
 app.use('/logout', logout);
-app.use('/write', write);
+app.use('/posts', posts);
 app.use('/category', category);
 /*===== E:Middle Ware =====*/
 

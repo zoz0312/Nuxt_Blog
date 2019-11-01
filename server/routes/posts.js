@@ -42,4 +42,22 @@ router.post('/', (req, res, next) => {
 		res.end();
 	});
 });
+router.post('/:contents', (req, res, next) => {
+	writing.find({'_id':req.params.contents}).then(write => {
+		lib.rtn = {
+			data: write,
+			success: true,
+			succ_desc: ''
+		}
+		console.log('write',write);
+		res.send(lib.rtn_result());
+		res.end();
+	}).catch(err => {
+		lib.rtn = {
+			err_desc: err
+		}
+		res.send(lib.rtn_result());
+		res.end();
+	});
+});
 module.exports = router;
