@@ -21,4 +21,19 @@ router.post('/', (req, res, next) => {
 		res.send(lib.rtn_result());
 	});
 });
+
+router.post('/add', (req, res, next) => {
+	const schm = new category();
+	schm.title = req.body.title;
+	schm.save( (err, category) => {
+		if( err ){
+			console.error(err);
+		}
+		lib.rtn = {
+			success: true,
+			succ_desc: ''
+		}
+		res.send(lib.rtn_result());
+	});
+});
 module.exports = router;
