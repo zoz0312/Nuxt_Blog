@@ -4,14 +4,15 @@
 
 <script>
 import '~/mixin/global_mixin'
-import Category from '../../layouts/category';
+import Category from '~/layouts/category';
 
 export default {
-	data () {
+	asyncData ({ params }) {
 		return {
 			info: {
-				'type': 'add',
-				'btn_text': '작성하기'
+				type: 'update',
+				btn_text: '수정하기',
+				post: params.post
 			}
 		}
 	},

@@ -36,10 +36,10 @@ export default {
 		return {
 			title: '',
 			contents: '',
-			console: '',
 			dropdown_edit: [],
 			category_id: [],
-			category: ''
+			category: '',
+			items: {}
 		}
 	},
 	mounted () {
@@ -55,6 +55,7 @@ export default {
 					this.dropdown_edit.push(cateObj[i].title);
 					this.category_id.push(cateObj[i]._id);
 				}
+				this.get_post();
 			}).catch((err) => {
 				console.log('err', err);
 			})
@@ -70,6 +71,16 @@ export default {
 			}).catch((err) => {
 				console.log('err', err)
 			});
+		},
+		get_post () {
+			this.$http.post('/post/' + this.propsdata.post).then((result) => {
+				this.items = Object.assign({}, result.data.data);
+				this.title = this.items.title;
+				this.contents = this.items.content;
+				this.category = this.dropdown_edit[this.category_id.indexOf(this.items.categoryId)];
+			}).catch((err) => {
+				console.log('err', err);
+			})
 		}
 	}
 }

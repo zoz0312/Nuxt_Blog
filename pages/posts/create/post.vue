@@ -4,13 +4,13 @@
 
 <script>
 import '~/mixin/global_mixin'
-import Post from '../../layouts/post';
+import Post from '~/layouts/post';
 
 export default {
 	data () {
 		return {
 			info: {
-				'type': 'add',
+				'type': 'create',
 				'btn_text': '작성하기'
 			}
 		}
