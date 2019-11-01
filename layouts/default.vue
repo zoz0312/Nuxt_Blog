@@ -102,7 +102,7 @@ export default {
 	},
 	methods: {
 		update_category () {
-			this.$http.get('/category').then((result) => {
+			this.$http.post('/category').then((result) => {
 				this.categorys = Object.assign({}, result.data.data);
 			}).catch((err) => {
 				console.log('err', err);

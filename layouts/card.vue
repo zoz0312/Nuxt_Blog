@@ -2,6 +2,7 @@
 	<v-card
 		class="mx-auto"
 		max-width="400"
+		:to="'/posts/' + propsdata._id"
 		outlined
 	>
 		<v-list-item three-line>

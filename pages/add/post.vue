@@ -50,7 +50,7 @@ export default {
 		get_category () {
 			let cateObj;
 			let i;
-			this.$http.get('/category').then((result) => {
+			this.$http.post('/category').then((result) => {
 				cateObj = Object.assign({}, result.data.data);
 				for (i = 0; i < Object.keys(cateObj).length; i++) {
 					this.dropdown_edit.push(cateObj[i].title);

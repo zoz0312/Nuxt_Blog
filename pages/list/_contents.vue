@@ -1,12 +1,8 @@
 <template>
 	<v-container>
 		<div v-for="item in items" v-bind:key="item._id">
-		<Card v-bind:propsdata="item"></Card>
+			<Card v-bind:propsdata="item"></Card>
 		</div>
-        <div>
-            Contents: {{ contents }}
-						items: {{ items }}
-        </div>
 	</v-container>
 </template>
 
@@ -22,11 +18,11 @@ export default {
 	},
 	data () {
 		return {
-			items: []
+			items: {}
 		}
 	},
 	mounted () {
-		this.$http.post('/posts/' + this.contents).then((result) => {
+		this.$http.post('/list/' + this.contents).then((result) => {
 			this.items = Object.assign({}, result.data.data);
 		}).catch((err) => {
 			console.log('err', err);
