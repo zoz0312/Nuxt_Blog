@@ -36,6 +36,7 @@ export default {
 		},
 		write () {
 			const d = {
+				_id: this.propsdata.post ? this.propsdata.post : 0,
 				title: this.title
 			};
 			this.$http.post('/category/' + this.propsdata.type, d).then((result) => {

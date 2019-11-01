@@ -38,11 +38,29 @@ router.post('/add', (req, res, next) => {
 });
 
 router.post('/update', (req, res, next) => {
-	lib.rtn = {
-		success: true,
-		succ_desc: 'test update'
-	}
-	res.send(lib.rtn_result());
+	category.findById({'_id':req.body._id}).then(category => {
+		category.title = req.body.title;
+		category.save( (err, save_category) => {
+			if( err ){
+				lib.rtn = {
+					err_desc: 'Save Fail\n' + err
+				};
+			} else {
+				lib.rtn = {
+					success: true,
+					succ_desc: 'update success\n' + save_category
+				};
+			}
+			res.send(lib.rtn_result());
+			res.end();
+		});
+	}).catch(err => {
+		lib.rtn = {
+			err_desc: err
+		};
+		res.send(lib.rtn_result());
+		res.end();
+	});
 });
 
 router.post('/:categoryId', (req, res, next) => {

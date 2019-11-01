@@ -27,7 +27,6 @@ router.post('/add', (req, res, next) => {
 
 router.post('/update', (req, res, next) => {
 	writing.findById({'_id':req.body._id}).then(post => {
-		console.log('post', post);
 		post.title = req.body.title;
 		post.content = req.body.contents;
 		post.categoryId = req.body.category_id;
@@ -36,14 +35,15 @@ router.post('/update', (req, res, next) => {
 				lib.rtn = {
 					err_desc: 'Save Fail\n' + err
 				};
-				res.send(lib.rtn_result());
-				res.end();
+			} else {
+				lib.rtn = {
+					success: true,
+					succ_desc: 'update success\n' + save_post
+				};
 			}
-			lib.rtn = {
-				success: true,
-				succ_desc: 'update success\n' + save_post
-			};
-		})
+			res.send(lib.rtn_result());
+			res.end();
+		});
 	}).catch(err => {
 		lib.rtn = {
 			err_desc: err
@@ -51,7 +51,6 @@ router.post('/update', (req, res, next) => {
 		res.send(lib.rtn_result());
 		res.end();
 	});
-	res.send(lib.rtn_result());
 });
 
 router.post('/:post', (req, res, next) => {

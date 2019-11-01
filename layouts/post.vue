@@ -66,7 +66,6 @@ export default {
 				contents: this.contents,
 				category_id: this.category_id[this.dropdown_edit.indexOf(this.category)]
 			};
-			d._id = parseInt(d._id, 10);
 			this.$http.post('/post/' + this.propsdata.type, d).then((result) => {
 				console.log('result', result.data)
 			}).catch((err) => {
