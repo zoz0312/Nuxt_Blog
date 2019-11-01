@@ -28,7 +28,7 @@ const sess = {
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js');
 config.dev = process.env.NODE_ENV !== 'production';
-const server_config = require('/home/ahnhc/config.json');
+// const server_config = require('/home/ahnhc/config.json');
 
 /*===== S:Node Modules =====*/
 app.use(bodyParser.json());

@@ -11,6 +11,7 @@
         <v-list-item
           v-for="(item, i) in categorys"
           :key="i"
+          :to="'/category/'+item.title"
         >
           <v-list-item-content>
             <v-list-item-title v-text="item.title" />
