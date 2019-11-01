@@ -87,7 +87,7 @@
 export default {
 	data () {
 		return {
-			categorys: [],
+			categorys: {},
 			clipped: false,
 			drawer: false,
 			fixed: false,

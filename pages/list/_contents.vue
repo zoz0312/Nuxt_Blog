@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import '~/mixin/global_mixin'
 import Card from '../../layouts/card';
 
 export default {
