@@ -12,13 +12,11 @@
       <span class="title font-weight-light">Login</span>
     </v-card-title>
     <v-text-field
-      v-model="name"
-      :error-messages="nameErrors"
+      v-model="user_id"
       label="ID"
     ></v-text-field>
     <v-text-field
-      v-model="email"
-      :error-messages="emailErrors"
+      v-model="user_pw"
       label="Password"
     ></v-text-field>
     <v-btn
@@ -35,14 +33,18 @@ import '~/mixin/global_mixin'
 export default {
 	layout: 'login',
 	data: () => ({
-		name: '',
-		email: ''
+		user_id: '',
+		user_pw: ''
 	}),
 
 	methods: {
 		login () {
-			this.$http.post('/login').then((result) => {
-				console.log('result', result.data)
+			const d = {
+				user_id: this.user_id,
+				user_pw: this.user_pw
+			}
+			this.$http.post('/login', d).then((result) => {
+				console.log(result);
 			}).catch((error) => {
 				console.log('error', error)
 			});

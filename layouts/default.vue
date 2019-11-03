@@ -44,6 +44,10 @@
         <v-icon>mdi-minus</v-icon>
       </v-btn>
       <v-toolbar-title v-text="title" />
+      <v-btn
+        icon
+        :to="'/login'"
+      >TEXT</v-btn>
       <v-spacer />
       <v-btn
         icon
@@ -94,7 +98,7 @@ export default {
 			miniVariant: false,
 			right: true,
 			rightDrawer: false,
-			title: 'Vuetify.js'
+			title: 'AJu Blog'
 		}
 	},
 	mounted () {

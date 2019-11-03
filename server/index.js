@@ -2,7 +2,6 @@ const express = require('express');
 const consola = require('consola');
 const { Nuxt, Builder } = require('nuxt');
 const mongoose = require('mongoose');
-const auto_increment = require('mongoose-auto-increment');
 const app = express();
 
 const bodyParser = require('body-parser');
@@ -104,6 +103,8 @@ async function start () {
 	});
 
 	app.get('*', (req, res, next) => {
+    console.log('req.session.user_id', req.session.user_id);
+    console.log('req.session.user_pw', req.session.user_pw);
 		next();
 	});
 
