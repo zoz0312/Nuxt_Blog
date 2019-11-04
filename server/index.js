@@ -50,12 +50,14 @@ db.once('open', function(){
 /*===== E:DB Connection =====*/
 
 /*===== S:Middle Ware =====*/
+const api = require('./api/api');
 const login = require('./routes/login');
 const logout = require('./routes/logout');
 const post_list = require('./routes/post_list');
 const category = require('./routes/category');
 const post = require('./routes/post');
 
+app.use('/api', api);
 app.use('/login', login);
 app.use('/logout', logout);
 app.use('/list', post_list);

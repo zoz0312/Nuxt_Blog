@@ -1,14 +1,16 @@
 import axios from 'axios'
 
 export const state = () => ({
-	authUser: null
+	authUser: axios.post('/api/user_status').then((result) => {
+		return result.data.auth;
+	}).catch(() => {
+		return null;
+	})
 })
 
 export const mutations = {
 	SET_USER (state, user) {
-		console.log('set user', user)
 		state.authUser = user
-		console.log('state', state)
 	}
 }
 

@@ -12,15 +12,20 @@ router.post('/', function(req, res, next) {
 		lib.rtn.err_desc = 'login fail';
 		res.status(401).send(lib.rtn_result());
 	} else {
+		if( user_id == server_config.server.id ){
+			req.session.permission = 'admin';
+		} else {
+			req.session.permission = 'user';
+		}
 		req.session.user_id = user_id;
 		req.session.user_pw = user_pw;
 		req.session.save(() => {
-			res.json({ username: 'admin' });
-			// lib.rtn = {
-			// 	success: true,
-			// 	succ_desc: '로그인 성공'
-			// }
-			// res.send(lib.rtn_result());
+			lib.rtn = {
+				data: { auth: req.session.permission },
+				success: true,
+				succ_desc: '로그인 성공'
+			}
+			res.send(lib.rtn_result());
 		});
 		console.log('user_id',req.session.user_id);
 	}
