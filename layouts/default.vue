@@ -88,6 +88,8 @@
 </template>
 
 <script>
+import '~/mixin/global_mixin'
+
 export default {
 	data () {
 		return {

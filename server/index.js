@@ -14,14 +14,15 @@ const post_middle = require('./modules/post');
 
 const sess = {
   secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
+  resave: true,
+  saveUninitialized: true
+/*
   cookie: {
     path: '/',
     secure: true,
     maxAge: 1000 * 60 * 30 // 30Min
-  },
-  name: 'admin'
+  }
+*/
 }
 
 // Import and Set Nuxt.js options
