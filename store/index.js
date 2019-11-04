@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const state = () => ({
-	authUser: ''
+	authUser: null
 })
 
 export const mutations = {
@@ -12,9 +12,7 @@ export const mutations = {
 
 export const actions = {
 	nuxtServerInit ({ commit }, { req }) {
-		console.log('req.session FRONT', req.session);
 		if (req.session && req.session.permission) {
-			console.log('SET_USER permission', req.session.permission);
 			commit('SET_USER', req.session.permission);
 		}
 	},

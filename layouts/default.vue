@@ -45,9 +45,13 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-btn
-        icon
         :to="'/login'"
-      >TEXT</v-btn>
+      >Login</v-btn>
+			<v-btn
+				v-if="$store.state.authUser != null"
+				@click="logout"
+			>Logout
+			</v-btn>
       <v-spacer />
       <v-btn
         icon
@@ -112,6 +116,13 @@ export default {
 				this.categorys = Object.assign({}, result.data.data);
 			}).catch((err) => {
 				console.log('err', err);
+			})
+		},
+		logout () {
+			this.$store.dispatch('logout').then(() => {
+				alert('Logout!~');
+			}).catch((err) => {
+				console.log('err', err)
 			})
 		}
 	}
