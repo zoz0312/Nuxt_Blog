@@ -45,12 +45,13 @@
       </v-btn>
       <v-btn
 				:to="'/'"
-			>{{ title }}</v-btn>
+			>홈</v-btn>
       <v-btn
+        v-if="$store.state.authUser === null"
         :to="'/login'"
       >Login</v-btn>
 			<v-btn
-				v-if="$store.state.authUser != null"
+				v-if="$store.state.authUser !== null"
 				@click="logout"
 			>Logout
 			</v-btn>
@@ -88,7 +89,7 @@
       :fixed="fixed"
       app
     >
-      <span>&copy; 2019{{ $store.state }}</span>
+      <span>&copy; 2019 Aju(zoz0312)</span>
     </v-footer>
   </v-app>
 </template>
@@ -105,8 +106,7 @@ export default {
 			fixed: false,
 			miniVariant: false,
 			right: true,
-			rightDrawer: false,
-			title: 'AJu Blog'
+			rightDrawer: false
 		}
 	},
 	mounted () {

@@ -24,7 +24,9 @@ export default {
 		}
 	},
 	mounted () {
-		this.get_category_id();
+		if (this.propsdata.type === 'update') {
+			this.get_category_id();
+		}
 	},
 	methods: {
 		get_category_id () {
@@ -39,9 +41,7 @@ export default {
 				_id: this.propsdata.post ? this.propsdata.post : 0,
 				title: this.title
 			};
-			this.$http.post('/category/' + this.propsdata.type, d).then((result) => {
-				console.log('result', result.data)
-			}).catch((err) => {
+			this.$http.post('/category/' + this.propsdata.type, d).catch((err) => {
 				console.log('err', err)
 			});
 		}

@@ -46,6 +46,7 @@ export default {
 	},
 	methods: {
 		get_category () {
+			console.log('POST')
 			let cateObj;
 			let i;
 			this.$http.post('/category').then((result) => {
@@ -54,7 +55,9 @@ export default {
 					this.dropdown_edit.push(cateObj[i].title);
 					this.category_id.push(cateObj[i]._id);
 				}
-				this.get_post();
+				if (this.propsdata.type === 'update') {
+					this.get_post();
+				}
 			}).catch((err) => {
 				console.log('err', err);
 			})
@@ -66,9 +69,7 @@ export default {
 				contents: this.contents,
 				category_id: this.category_id[this.dropdown_edit.indexOf(this.category)]
 			};
-			this.$http.post('/post/' + this.propsdata.type, d).then((result) => {
-				console.log('result', result.data)
-			}).catch((err) => {
+			this.$http.post('/post/' + this.propsdata.type, d).catch((err) => {
 				console.log('err', err)
 			});
 		},
