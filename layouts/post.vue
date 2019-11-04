@@ -11,9 +11,9 @@
 			v-model="contents"
 			label="내용"
 		></v-text-field>
+		<Editor />
 		<v-col cols="12" sm="4">
 			<p>Segmented</p>
-
 			<v-overflow-btn
 				class="my-2"
 				:items="dropdown_edit"
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import Editor from '~/components/editor.vue'
+
 export default {
 	props: ['propsdata'],
 	data () {
@@ -46,7 +48,6 @@ export default {
 	},
 	methods: {
 		get_category () {
-			console.log('POST')
 			let cateObj;
 			let i;
 			this.$http.post('/category').then((result) => {
@@ -82,6 +83,9 @@ export default {
 				console.log('err', err);
 			})
 		}
+	},
+	components: {
+		Editor
 	}
 }
 </script>

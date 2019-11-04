@@ -35,7 +35,6 @@ export default {
 	methods: {
 		delete_post () {
 			this.$http.delete('/post', { data: { _id: this.propsdata._id } }).then((result) => {
-				console.log('delete success');
 				this.get_post_list();
 			}).catch((err) => {
 				console.log('err', err);
