@@ -82,7 +82,7 @@
       :fixed="fixed"
       app
     >
-      <span>&copy; 2019</span>
+      <span>&copy; 2019{{ $store.state }}</span>
     </v-footer>
   </v-app>
 </template>

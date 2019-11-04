@@ -1,7 +1,11 @@
 {
-    "server":{
-        "id": "",
-        "pw": "",
-        "db_url":""
-    }
+	"server":{
+		"id": "",
+		"pw": "",
+		"db_url":""
+	},
+	"session":{
+		"path": "",
+		"maxAge": 0
+	}
 }

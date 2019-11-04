@@ -9,20 +9,20 @@ const exec = require('child_process').exec;
 const fs = require('file-system');
 const logger = require('morgan');
 const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 
+const server_config = require('/home/ahnhc/config.json');
 const post_middle = require('./modules/post');
 
+const file_store_opt = {
+  path: server_config.session.path,
+  ttl: server_config.session.maxAge
+}
 const sess = {
+  store: new FileStore(file_store_opt),
   secret: 'keyboard cat',
   resave: true,
   saveUninitialized: true
-/*
-  cookie: {
-    path: '/',
-    secure: true,
-    maxAge: 1000 * 60 * 30 // 30Min
-  }
-*/
 }
 
 // Import and Set Nuxt.js options
@@ -106,8 +106,6 @@ async function start () {
 	});
 
 	app.get('*', (req, res, next) => {
-    console.log('req.session.user_id', req.session.user_id);
-    console.log('req.session.user_pw', req.session.user_pw);
 		next();
 	});
 
