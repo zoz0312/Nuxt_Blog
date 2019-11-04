@@ -26,15 +26,24 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 ``` json
 {
 	"server":{
-		"id": "",			//user id
-		"pw": "", 		//user password
-		"db_url":""		//database url
+		"id": "",
+		"pw": "",
+		"db_url":""
 	},
 	"session":{
-		"path": "",		//session path
-		"maxAge": 0,	//session Max-Age
-		"key_sid": "",//session sid
-		"secret": ""	//session secret key
+		"path": "",
+		"maxAge": 0,
+		"key_sid": "",
+		"secret": ""
 	}
 }
 ```
+| Key1 | Key2 | 의미 |
+| :-------- |:--------- | :-------- |
+| `server` 	| `id` 			| admin ID |
+|						| `pw` 			| admin PW |
+|						| `db_url` 	| 접근할 DB URL |
+| `session` | `path` 		| session store path |
+|						| `maxAge` 	| session Max-Age |
+|						| `key_sid` | session sid |
+|						| `secret` 	| session secret key |
