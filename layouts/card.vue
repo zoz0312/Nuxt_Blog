@@ -16,10 +16,12 @@
 		</v-list-item>
 		<v-card-actions>
 			<v-btn
+				v-if="$store.state.authUser === 'admin'"
 				:to="'/posts/update/' + propsdata._id"
 				text
 			>Fix</v-btn>
 			<v-btn
+				v-if="$store.state.authUser === 'admin'"
 				v-on:click="delete_post"
 				text
 			>Delete</v-btn>

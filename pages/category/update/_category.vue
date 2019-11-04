@@ -7,6 +7,7 @@ import '~/mixin/global_mixin'
 import Category from '~/layouts/category';
 
 export default {
+	middleware: 'auth',
 	asyncData ({ params }) {
 		return {
 			info: {

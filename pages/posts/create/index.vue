@@ -7,6 +7,7 @@ import '~/mixin/global_mixin'
 import Post from '~/layouts/post';
 
 export default {
+	middleware: 'auth',
 	data () {
 		return {
 			info: {

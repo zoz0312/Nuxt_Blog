@@ -119,9 +119,7 @@ export default {
 			})
 		},
 		logout () {
-			this.$store.dispatch('logout').then(() => {
-				alert('Logout!~');
-			}).catch((err) => {
+			this.$store.dispatch('logout').catch((err) => {
 				console.log('err', err)
 			})
 		}
