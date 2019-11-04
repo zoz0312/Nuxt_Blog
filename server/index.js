@@ -20,8 +20,8 @@ const file_store_opt = {
 }
 const sess = {
   store: new FileStore(file_store_opt),
-  key: 'sid',
-  secret: 'keyboard cat',
+  key: server_config.session.key_sid,
+  secret: server_config.session.secret,
   resave: false,
   saveUninitialized: false
 }

@@ -43,7 +43,9 @@
       >
         <v-icon>mdi-minus</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="title" />
+      <v-btn
+				:to="'/'"
+			>{{ title }}</v-btn>
       <v-btn
         :to="'/login'"
       >Login</v-btn>

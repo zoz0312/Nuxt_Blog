@@ -26,9 +26,15 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 ``` json
 {
 	"server":{
-		"id": "",		//user id
+		"id": "",			//user id
 		"pw": "", 		//user password
 		"db_url":""		//database url
+	},
+	"session":{
+		"path": "",		//session path
+		"maxAge": 0,	//session Max-Age
+		"key_sid": "",//session sid
+		"secret": ""	//session secret key
 	}
 }
 ```
