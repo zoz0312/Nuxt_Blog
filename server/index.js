@@ -20,9 +20,10 @@ const file_store_opt = {
 }
 const sess = {
   store: new FileStore(file_store_opt),
+  key: 'sid',
   secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true
+  resave: false,
+  saveUninitialized: false
 }
 
 // Import and Set Nuxt.js options
@@ -106,6 +107,7 @@ async function start () {
 	});
 
 	app.get('*', (req, res, next) => {
+    // console.log('GET *', req.session);
 		next();
 	});
 
