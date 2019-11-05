@@ -1,14 +1,9 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
+  <v-row>
+    <v-col>
+		<InfoCard />
+    </v-col>
+    <v-col>
       <v-card>
         <v-card-title class="headline">
           Welcome to AJu Blog!
@@ -30,13 +25,16 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
-import '~/mixin/global_mixin'
+import InfoCard from '~/components/molecules/profile'
 
 export default {
+	components: {
+		InfoCard
+	}
 }
 </script>

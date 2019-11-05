@@ -5,7 +5,6 @@
 			fixed
 			app
 		>
-			<InfoCard />
 			<v-list>
 				<v-list-item
 					v-for="(item, i) in categorys"
@@ -51,7 +50,6 @@
 
 <script>
 import '~/mixin/global_mixin'
-import InfoCard from '~/components/molecules/profile'
 
 export default {
 	data () {
@@ -76,9 +74,6 @@ export default {
 				console.log('err', err)
 			})
 		}
-	},
-	components: {
-		InfoCard
 	}
 }
 </script>

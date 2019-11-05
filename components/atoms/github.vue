@@ -6,12 +6,12 @@
 
 <style>
 .git-link > a {
-	color: #ffffff;
+	color: #333333;
 	text-decoration: none;
 	transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
 }
 .git-link:hover * {
-	color: #cccccc;
+	color: #666666;
 	text-decoration: none;
 }
 </style>

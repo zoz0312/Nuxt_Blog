@@ -6,7 +6,7 @@
 
 <style>
 #email {
-	color: #ffffff;
+	color: #333333;
 	cursor: default;
 }
 </style>
