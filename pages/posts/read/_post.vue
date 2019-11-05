@@ -1,17 +1,20 @@
 <template>
 	<v-card
 		class="mx-auto pa-5"
-		max-width="800"
 	>
 		<v-text-field
 			v-model="items.title"
 			label="제목"
+			class="d-inline-block text-truncate"
 		></v-text-field>
 		<v-text-field
 			v-model="items.writer"
 			label="작성자"
 		></v-text-field>
-		<div v-html="items.content"></div>
+		<div
+			v-html="items.content"
+			class="d-inline-block text-truncate"
+		></div>
 	</v-card>
 </template>
 

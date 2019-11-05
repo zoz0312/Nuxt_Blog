@@ -45,7 +45,7 @@
 			app
 			color="#428bca"
 		>
-			<span class="white--text">&copy; 2019 Aju(zoz0312)</span>
+			<span class="white--text">&copy; 2019 AJu(zoz0312)</span>
 		</v-footer>
 	</v-app>
 </template>

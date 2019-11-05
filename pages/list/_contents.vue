@@ -1,7 +1,16 @@
 <template>
-	<v-container>
-		<div v-for="item in items" v-bind:key="item._id">
-			<Card v-bind:propsdata="item"></Card>
+	<v-container
+		class="text-center">
+		<div
+			v-for="item in items"
+			v-bind:key="item._id"
+		>
+			<Card
+				v-bind:propsdata="item"
+				width="100%"
+				max-height="300"
+				class="mb-4 ml-5 mr-5"
+			></Card>
 		</div>
 	</v-container>
 </template>

@@ -1,7 +1,6 @@
 <template>
 	<v-card
 		class="mx-auto"
-		max-width="400"
 		outlined
 	>
 		<v-list-item
@@ -9,9 +8,9 @@
 			:to="'/posts/read/' + propsdata._id"
 		>
 			<v-list-item-content>
-				<div class="overline mb-4">{{ propsdata.writer }}</div>
 				<v-list-item-title class="headline mb-1">{{ propsdata.title }}</v-list-item-title>
-				<v-list-item-subtitle>{{ propsdata.content }}</v-list-item-subtitle>
+				<v-list-item-subtitle>작성자 : {{ propsdata.writer }}</v-list-item-subtitle>
+				<v-card-text class="d-inline-block" max-height=50 min-height=50>{{ removeHtml(propsdata.content).slice(0, 150) }}...</v-card-text>
 			</v-list-item-content>
 		</v-list-item>
 		<v-card-actions>
