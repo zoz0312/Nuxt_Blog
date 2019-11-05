@@ -7,11 +7,7 @@
 			v-model="title"
 			label="제목"
 		></v-text-field>
-		<v-text-field
-			v-model="contents"
-			label="내용"
-		></v-text-field>
-		<Editor />
+		<Editor	ref="editor" />
 		<v-col cols="12" sm="4">
 			<p>Segmented</p>
 			<v-overflow-btn
@@ -21,6 +17,7 @@
 				label="Select Category"
 			></v-overflow-btn>
 		</v-col>
+		{{ editor_val }}
 		<v-btn
 			class="mr-4"
 			block
@@ -37,10 +34,10 @@ export default {
 	data () {
 		return {
 			title: '',
-			contents: '',
 			dropdown_edit: [],
 			category_id: [],
-			category: ''
+			category: '',
+			editor_val: ''
 		}
 	},
 	mounted () {
@@ -67,7 +64,7 @@ export default {
 			const d = {
 				_id: this.propsdata.post ? this.propsdata.post : 0,
 				title: this.title,
-				contents: this.contents,
+				contents: this.$refs.editor.rtn_value(),
 				category_id: this.category_id[this.dropdown_edit.indexOf(this.category)]
 			};
 			this.$http.post('/post/' + this.propsdata.type, d).catch((err) => {

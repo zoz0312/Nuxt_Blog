@@ -11,12 +11,11 @@
 			v-model="items.writer"
 			label="작성자"
 		></v-text-field>
-		<v-text-field
-			v-model="items.content"
-			label="내용"
-		></v-text-field>
+		<div>
+			{{ items.content }}
+		</div>
 	</v-card>
-	</template>
+</template>
 
 <script>
 import '~/mixin/global_mixin'
