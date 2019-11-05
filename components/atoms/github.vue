@@ -1,6 +1,6 @@
 <template>
 	<div class="git-link">
-		<a href="https://github.com/zoz0312"><v-icon>mdi-github-circle</v-icon>&nbsp;github.com/zoz0312</a>
+		<a href="https://github.com/zoz0312" target="_blank"><v-icon>mdi-github-circle</v-icon>&nbsp;github.com/zoz0312&nbsp;<v-icon>mdi-open-in-new</v-icon></a>
 	</div>
 </template>
 

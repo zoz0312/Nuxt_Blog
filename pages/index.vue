@@ -14,11 +14,15 @@
         <v-card-actions>
           <v-spacer />
           <v-btn
+            class="white--text"
+            color="#428bca"
             v-if="$store.state.authUser === 'admin'"
             :to="'/posts/create'"
           >글 작성하기
           </v-btn>
           <v-btn
+            class="white--text"
+            color="#428bca"
             v-if="$store.state.authUser === 'admin'"
             :to="'/category/create'"
           >카테고리 생성하기

@@ -28,7 +28,7 @@ export const actions = {
 			throw error
 		}
 	},
-	async logout ({ commit }) {
+	async logout ({ commit, redirect }) {
 		await axios.post('/logout')
 		commit('SET_USER', null)
 	}

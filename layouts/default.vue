@@ -20,6 +20,7 @@
 		<v-app-bar
 			fixed
 			app
+			color="#428bca"
 		>
 			<v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 			<v-btn
@@ -42,8 +43,9 @@
 		</v-content>
 		<v-footer
 			app
+			color="#428bca"
 		>
-			<span>&copy; 2019 Aju(zoz0312)</span>
+			<span class="white--text">&copy; 2019 Aju(zoz0312)</span>
 		</v-footer>
 	</v-app>
 </template>
@@ -70,8 +72,10 @@ export default {
 			})
 		},
 		logout () {
-			this.$store.dispatch('logout').catch((err) => {
-				console.log('err', err)
+			this.$store.dispatch('logout').then(() => {
+				location.href = '/';
+			}).catch((err) => {
+				console.log('err', err);
 			})
 		}
 	}

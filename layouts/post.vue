@@ -1,29 +1,40 @@
 <template>
-	<v-card
+	<div
 		class="mx-auto pa-5"
 		max-width="800"
 	>
-		<v-text-field
-			v-model="title"
-			label="제목"
-		></v-text-field>
+		<v-row>
+			<v-col cols="3">
+				<v-overflow-btn
+					class="my-2"
+					color="blue darken-1"
+					item-color="blue darken-1"
+					:items="dropdown_edit"
+					v-model="category"
+					label="카테고리"
+				></v-overflow-btn>
+			</v-col>
+			<v-col cols="9">
+				<v-text-field
+					v-model="title"
+					label="제목"
+					color="blue darken-1"
+				></v-text-field>
+			</v-col>
+		</v-row>
 		<Editor	ref="editor" />
-		<v-col cols="12" sm="4">
-			<p>Segmented</p>
-			<v-overflow-btn
-				class="my-2"
-				:items="dropdown_edit"
-				v-model="category"
-				label="Select Category"
-			></v-overflow-btn>
-		</v-col>
-		{{ editor_val }}
-		<v-btn
-			class="mr-4"
-			block
-			@click="write"
-		>{{ propsdata.btn_text }}</v-btn>
-	</v-card>
+		<v-hover
+			v-slot:default="{ hover }"
+		>
+			<v-btn
+				class="mt-5 white--text"
+				color="#428bca"
+				@click="write"
+				:elevation="hover ? 10 : 2"
+				block
+			>{{ propsdata.btn_text }}</v-btn>
+		</v-hover>
+	</div>
 </template>
 
 <script>

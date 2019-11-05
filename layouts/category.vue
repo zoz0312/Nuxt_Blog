@@ -6,12 +6,19 @@
 		<v-text-field
 			v-model="title"
 			label="카테고리 명"
+			color="blue darken-1"
 		></v-text-field>
-		<v-btn
-			class="mr-4"
-			block
-			@click="write"
-		>{{ propsdata.btn_text }}</v-btn>
+		<v-hover
+			v-slot:default="{ hover }"
+		>
+			<v-btn
+				class="mt-2 white--text"
+				color="#428bca"
+				block
+				@click="write"
+				:elevation="hover ? 10 : 2"
+			>{{ propsdata.btn_text }}</v-btn>
+		</v-hover>
 	</v-card>
 </template>
 
