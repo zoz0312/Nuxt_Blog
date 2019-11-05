@@ -43,8 +43,11 @@ export default {
 		'editor': Editor
 	},
 	methods: {
-		rtn_value () {
+		return_value () {
 			return this.editor_val;
+		},
+		intert_value (val) {
+			this.editor_val = val;
 		}
 	}
 }

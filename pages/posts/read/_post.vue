@@ -11,9 +11,7 @@
 			v-model="items.writer"
 			label="작성자"
 		></v-text-field>
-		<div>
-			{{ items.content }}
-		</div>
+		<div v-html="items.content"></div>
 	</v-card>
 </template>
 

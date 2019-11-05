@@ -64,7 +64,7 @@ export default {
 			const d = {
 				_id: this.propsdata.post ? this.propsdata.post : 0,
 				title: this.title,
-				contents: this.$refs.editor.rtn_value(),
+				contents: this.$refs.editor.return_value(),
 				category_id: this.category_id[this.dropdown_edit.indexOf(this.category)]
 			};
 			this.$http.post('/post/' + this.propsdata.type, d).catch((err) => {
@@ -74,7 +74,7 @@ export default {
 		get_post () {
 			this.$http.post('/post/' + this.propsdata.post).then((result) => {
 				this.title = result.data.data.title;
-				this.contents = result.data.data.content;
+				this.$refs.editor.intert_value(result.data.data.content);
 				this.category = this.dropdown_edit[this.category_id.indexOf(result.data.data.categoryId)];
 			}).catch((err) => {
 				console.log('err', err);
