@@ -25,7 +25,7 @@ router.post('/', (req, res, next) => {
 router.post('/create', (req, res, next) => {
 	const schm = new category();
 	schm.title = req.body.title;
-	schm.save( (err, category) => {
+	schm.save( (err) => {
 		if( err ){
 			console.error(err);
 		}

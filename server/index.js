@@ -29,7 +29,6 @@ const sess = {
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js');
 config.dev = process.env.NODE_ENV !== 'production';
-// const server_config = require('/home/ahnhc/config.json');
 
 /*===== S:Node Modules =====*/
 app.use(bodyParser.json());
@@ -40,8 +39,6 @@ app.use(logger('dev'));
 app.use(session(sess));
 /*===== E:Node Modules =====*/
 
-app.use(post_middle);
-
 /*===== S:DB Connection =====*/
 var db = mongoose.connection;
 db.on('error', console.error);
@@ -51,6 +48,8 @@ db.once('open', function(){
 /*===== E:DB Connection =====*/
 
 /*===== S:Middle Ware =====*/
+app.use(post_middle);
+
 const api = require('./api/api');
 const login = require('./routes/login');
 const logout = require('./routes/logout');
@@ -83,7 +82,7 @@ async function start () {
 	/*===== S:Access-Control-Allow =====*/
   app.all('*', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
   });

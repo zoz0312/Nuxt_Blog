@@ -13,7 +13,6 @@ router.post('/:contents', (req, res, next) => {
 			success: true,
 			succ_desc: ''
 		}
-		console.log('write',write);
 		res.send(lib.rtn_result());
 		res.end();
 	}).catch(err => {

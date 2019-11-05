@@ -19,7 +19,6 @@ router.post('/create', (req, res, next) => {
 			success: true,
 			succ_desc: ''
 		}
-		console.log('schm', schm);
 		res.send(lib.rtn_result());
 		res.end();
 	});

@@ -66,6 +66,7 @@
     <v-content>
       <v-container>
         <nuxt />
+				<InfoCard />
       </v-container>
     </v-content>
     <v-navigation-drawer
@@ -96,6 +97,7 @@
 
 <script>
 import '~/mixin/global_mixin'
+import InfoCard from '~/components/molecules/nav_info_card'
 
 export default {
 	data () {
@@ -125,6 +127,9 @@ export default {
 				console.log('err', err)
 			})
 		}
+	},
+	components: {
+		InfoCard
 	}
 }
 </script>

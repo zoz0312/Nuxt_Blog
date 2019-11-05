@@ -27,7 +27,6 @@ router.post('/', function(req, res, next) {
 			}
 			res.send(lib.rtn_result());
 		});
-		console.log('user_id',req.session.user_id);
 	}
 });
 module.exports = router;
