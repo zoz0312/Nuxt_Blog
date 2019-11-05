@@ -5,7 +5,7 @@
     tile
   >
 		<v-img
-			:src="'https://t2.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/P9h/image/f-2zqKie74i-mGXD5BFHCrrC-0A.png'"
+			:src="''"
 			class="white--text align-end"
 			height="200px"
 		></v-img>
