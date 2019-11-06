@@ -22,7 +22,7 @@ const writingSchema = new Schema({
 	title: String,
 	content: String,
 	writer: String,
-	createDate: Date,
+	createDate: String,
 	count: { type:Number, default:0 },
 	categoryId: { type:Number, default:0 }
 });

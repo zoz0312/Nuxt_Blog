@@ -99,7 +99,7 @@ async function start () {
 		res.end();
 	});
 	/*===== E:Methods Block =====*/
-  const ban_ip = [];
+  const ban_ip = ['201.117.251.50'];
 	app.all('*', (req, res, next) => {
     res.append('modify', 'Made By zoz0312');
     const ip = req.headers['x-forwarded-for'] ||

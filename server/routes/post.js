@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
+const moment = require('moment');
+require('moment-timezone');
+
+moment.tz.setDefault("Asia/Seoul");
+
 const libs = require('../modules/lib');
 let lib = new libs();
 
@@ -11,7 +16,7 @@ router.post('/create', (req, res, next) => {
 	schm.title = req.body.title;
 	schm.content = req.body.contents;
 	schm.writer = 'zoz0312 (AJu)';
-	schm.createDate = new Date();
+	schm.createDate = moment().format('YYYY-MM-DDTHH:mm:ss');
 	schm.categoryId = req.body.category_id;
 	schm.save( (err, schm) => {
 		if( err ) return console.error(err);
