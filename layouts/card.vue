@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<Confirm ref="confirm"/>
 		<v-hover v-slot:default="{ hover }" class="text-left">
 			<v-card
 				class="mx-auto"
@@ -31,7 +32,7 @@
 					text
 				>Fix</v-btn>
 				<v-btn
-					v-on:click="delete_post"
+					v-on:click="confirm_post"
 					text
 				>Delete</v-btn>
 			</v-card-actions>
@@ -40,19 +41,29 @@
 </template>
 
 <script>
+import Confirm from '~/components/confirm';
+
 export default {
 	props: ['propsdata'],
 	methods: {
+		confirm_post () {
+			this.$refs.confirm.set_confirm('delete');
+		},
 		delete_post () {
+		},
+		get_post_list () {
+			this.$parent.get_post_list();
+		},
+		btn_true () {
 			this.$http.delete('/post', { data: { _id: this.propsdata._id } }).then((result) => {
 				this.get_post_list();
 			}).catch((err) => {
 				console.log('err', err);
-			})
-		},
-		get_post_list () {
-			this.$parent.get_post_list();
+			});
 		}
+	},
+	components: {
+		Confirm
 	}
 }
 </script>

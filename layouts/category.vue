@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import Alert from '~/components/alert.vue'
+import Alert from '~/components/alert';
 
 export default {
 	props: ['propsdata'],

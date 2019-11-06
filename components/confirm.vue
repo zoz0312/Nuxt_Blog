@@ -15,10 +15,10 @@
 						<v-spacer></v-spacer>
 						<v-btn
 							class=""
-							@click="dialog = false"
+							@click="btn_false"
 						>{{ btn1 }}</v-btn>
 						<v-btn
-							@click="dialog = false"
+							@click="btn_true"
 							:color="classType"
 						>{{ btn2 }}</v-btn>
 					</v-card-actions>
@@ -34,13 +34,22 @@ export default {
 		return {
 			type: 'delete',
 			classType: 'error',
-			dialog: true,
+			dialog: false,
+			callbackBool: null,
 			text: '삭제하시겠습니까?',
 			btn1: '취소',
 			btn2: '삭제'
 		}
 	},
 	methods: {
+		btn_false () {
+			this.dialog = false;
+			this.$parent.btn_false();
+		},
+		btn_true () {
+			this.dialog = false;
+			this.$parent.btn_true();
+		},
 		set_confirm (_type) {
 			if (_type) {
 				this.type = _type;
@@ -59,6 +68,7 @@ export default {
 				this.btn2 = '적용';
 				break;
 			}
+			this.dialog = true;
 		}
 	}
 }
