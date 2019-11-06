@@ -1,6 +1,7 @@
 <template>
 	<v-container
 		class="text-center">
+		<Confirm />
 		<div
 			v-for="(item, index) in items"
 			v-bind:key="index"
@@ -17,6 +18,7 @@
 
 <script>
 import Card from '../../layouts/card';
+import Confirm from '~/components/confirm';
 
 export default {
 	asyncData ({ params }) {
@@ -42,7 +44,8 @@ export default {
 		}
 	},
 	components: {
-		Card
+		Card,
+		Confirm
 	}
 }
 </script>

@@ -8,7 +8,8 @@
 			border="top"
 			:type="alertType"
 			elevation="5"
-			min-width="100%">
+			min-width="100%"
+			transition="scale-transition">
       {{ text }}
     </v-alert>
   </v-overlay>
