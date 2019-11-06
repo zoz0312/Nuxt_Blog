@@ -2,21 +2,20 @@
 	<v-container
 		class="text-center">
 		<div
-			v-for="item in items"
-			v-bind:key="item._id"
+			v-for="(item, index) in items"
+			v-bind:key="index"
+			class="d-inline-block"
 		>
 			<Card
 				v-bind:propsdata="item"
-				width="100%"
 				max-height="300"
-				class="mb-4 ml-5 mr-5"
+				class="mb-6 ml-5 mr-5"
 			></Card>
 		</div>
 	</v-container>
 </template>
 
 <script>
-import '~/mixin/global_mixin'
 import Card from '../../layouts/card';
 
 export default {
@@ -36,7 +35,7 @@ export default {
 	methods: {
 		get_post_list () {
 			this.$http.post('/list/' + this.contents).then((result) => {
-				this.items = Object.assign({}, result.data.data);
+				this.items = result.data.data.reverse();
 			}).catch((err) => {
 				console.log('err', err);
 			});

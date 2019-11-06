@@ -8,8 +8,12 @@ const writing = require('../../models/writing');
 
 router.post('/:contents', (req, res, next) => {
 	writing.find({'categoryId':req.params.contents}).then(write => {
+		let arr = [];
+		for( let key in write ){
+			arr.push(write[key]);
+		}
 		lib.rtn = {
-			data: write,
+			data: arr,
 			success: true,
 			succ_desc: ''
 		}

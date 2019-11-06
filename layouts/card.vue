@@ -1,31 +1,42 @@
 <template>
-	<v-card
-		class="mx-auto"
-		outlined
-	>
-		<v-list-item
-			three-line
+	<v-hover v-slot:default="{ hover }" class="text-left">
+		<v-card
+			class="mx-auto"
+			outlined
+			max-width="300"
+			min-width="300"
+			:elevation="hover ? 12 : 2"
 			:to="'/posts/read/' + propsdata._id"
 		>
-			<v-list-item-content>
-				<v-list-item-title class="headline mb-1">{{ propsdata.title }}</v-list-item-title>
-				<v-list-item-subtitle>작성자 : {{ propsdata.writer }}</v-list-item-subtitle>
-				<v-card-text class="d-inline-block" max-height=50 min-height=50>{{ removeHtml(propsdata.content).slice(0, 150) }}...</v-card-text>
-			</v-list-item-content>
-		</v-list-item>
-		<v-card-actions>
-			<v-btn
+			<v-img
+				class="white--text align-end"
+				height="200px"
+				src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+			>
+				<v-card-title class="headline mb-1">{{ titleSlice(propsdata.title) }}</v-card-title>
+			</v-img>
+			<v-card-subtitle class="pb-1">{{ dateParse(propsdata.createDate) }}</v-card-subtitle>
+			<v-card-subtitle class="pt-0">{{ propsdata.writer }}</v-card-subtitle>
+			<v-card
 				v-if="$store.state.authUser === 'admin'"
-				:to="'/posts/update/' + propsdata._id"
-				text
-			>Fix</v-btn>
-			<v-btn
-				v-if="$store.state.authUser === 'admin'"
-				v-on:click="delete_post"
-				text
-			>Delete</v-btn>
-		</v-card-actions>
-	</v-card>
+				flat
+			>
+				<v-divider class="mx-4"></v-divider>
+				<v-card-text>
+					<v-btn-toggle>
+						<v-btn
+							:to="'/posts/update/' + propsdata._id"
+							text
+						>Fix</v-btn>
+						<v-btn
+							v-on:click="delete_post"
+							text
+						>Delete</v-btn>
+					</v-btn-toggle>
+				</v-card-text>
+			</v-card>
+		</v-card>
+	</v-hover>
 </template>
 
 <script>
