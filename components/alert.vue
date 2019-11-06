@@ -6,7 +6,7 @@
 		<v-alert
       v-model="alertView"
 			border="top"
-			type="success"
+			:type="alertType"
 			elevation="5"
 			min-width="100%">
       {{ text }}
@@ -19,13 +19,17 @@ export default {
 	data () {
 		return {
 			alertView: false,
-			text: ''
+			text: '',
+			redirectFlag: false,
+			alertType: 'success'
 		}
 	},
 	methods: {
-		set_alert_text (_text) {
+		set_alert_text (_text, type, flag) {
 			this.text = _text;
 			this.alertView = true;
+			this.alertType = type;
+			this.redirectFlag = flag;
 			this.close_alert();
 		},
 		close_alert () {
@@ -33,7 +37,10 @@ export default {
 				if (this.alertView) {
 					this.alertView = false;
 				}
-				this.$router.push('/')
+				if (this.redirectFlag) {
+					this.$router.push('/');
+					this.redirectFlag = false;
+				}
 			}, 1500);
 		}
 	}

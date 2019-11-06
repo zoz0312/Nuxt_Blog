@@ -45,6 +45,24 @@ Vue.mixin({
 			const ymd = _date[0].split('-');
 			const time = _date[1].split('.');
 			return ymd[0].slice(2, 4) + '년 ' + ymd[1] + '월 ' + ymd[2] + '일 ' + time[0];
+		},
+		useString (str) {
+			if (typeof str !== 'string') {
+				return false;
+			}
+			if (str === '') {
+				return false;
+			}
+			return true;
+		},
+		useNumber (num) {
+			if (typeof num === 'number') {
+				return false;
+			}
+			if (!num.test(/^[0-9]+$/g)) {
+				return false;
+			}
+			return true;
 		}
 	}
 });

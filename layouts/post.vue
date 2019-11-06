@@ -1,5 +1,5 @@
 <template>
-	<div
+	<v-card
 		class="mx-auto pa-5"
 		max-width="800"
 	>
@@ -13,6 +13,7 @@
 					:items="dropdown_edit"
 					v-model="category"
 					label="카테고리"
+					:rules="category_rule"
 				></v-overflow-btn>
 			</v-col>
 			<v-col cols="9">
@@ -20,6 +21,7 @@
 					v-model="title"
 					label="제목"
 					color="blue darken-1"
+					:rules="title_rule"
 				></v-text-field>
 			</v-col>
 		</v-row>
@@ -35,7 +37,7 @@
 				block
 			>{{ propsdata.btn_text }}</v-btn>
 		</v-hover>
-	</div>
+	</v-card>
 </template>
 
 <script>
@@ -50,7 +52,13 @@ export default {
 			dropdown_edit: [],
 			category_id: [],
 			category: '',
-			editor_val: ''
+			editor_val: '',
+			category_rule: [
+				v => !!v || '카테고리를 선택해주세요.'
+			],
+			title_rule: [
+				v => !!v || '제목을 입력해주세요.'
+			]
 		}
 	},
 	mounted () {
@@ -74,14 +82,27 @@ export default {
 			})
 		},
 		write () {
+			const editorText = this.$refs.editor.return_value();
+			if (!this.useString(this.category)) {
+				this.$refs.alert.set_alert_text('카테고리를 선택해주세요.', 'error');
+				return;
+			}
+			if (!this.useString(this.title)) {
+				this.$refs.alert.set_alert_text('제목을 입력해주세요.', 'error');
+				return;
+			}
+			if (!this.useString(editorText)) {
+				this.$refs.alert.set_alert_text('내용을 입력해주세요.', 'error');
+				return;
+			}
 			const d = {
 				_id: this.propsdata.post ? this.propsdata.post : 0,
 				title: this.title,
-				contents: this.$refs.editor.return_value(),
+				contents: editorText,
 				category_id: this.category_id[this.dropdown_edit.indexOf(this.category)]
 			};
 			this.$http.post('/post/' + this.propsdata.type, d).then(() => {
-				this.$refs.alert.set_alert_text('성공적으로 작성되었습니다.');
+				this.$refs.alert.set_alert_text('성공적으로 작성되었습니다.', 'success', true);
 			}).catch((err) => {
 				console.log('err', err)
 			});
