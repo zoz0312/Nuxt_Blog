@@ -28,8 +28,9 @@ export const actions = {
 			throw error
 		}
 	},
-	async logout ({ commit, redirect }) {
+	async logout ({ commit }) {
 		await axios.post('/logout')
 		commit('SET_USER', null)
+		this.$router.push('/')
 	}
 }

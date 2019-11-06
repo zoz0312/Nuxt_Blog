@@ -72,9 +72,7 @@ export default {
 			})
 		},
 		logout () {
-			this.$store.dispatch('logout').then(() => {
-				location.href = '/';
-			}).catch((err) => {
+			this.$store.dispatch('logout').catch((err) => {
 				console.log('err', err);
 			})
 		}

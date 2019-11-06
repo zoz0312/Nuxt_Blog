@@ -3,6 +3,7 @@
 		class="mx-auto pa-5"
 		max-width="800"
 	>
+		<Alert ref="alert"/>
 		<v-row>
 			<v-col cols="3">
 				<v-overflow-btn
@@ -39,6 +40,7 @@
 
 <script>
 import Editor from '~/components/editor.vue'
+import Alert from '~/components/alert.vue'
 
 export default {
 	props: ['propsdata'],
@@ -78,7 +80,9 @@ export default {
 				contents: this.$refs.editor.return_value(),
 				category_id: this.category_id[this.dropdown_edit.indexOf(this.category)]
 			};
-			this.$http.post('/post/' + this.propsdata.type, d).catch((err) => {
+			this.$http.post('/post/' + this.propsdata.type, d).then(() => {
+				this.$refs.alert.set_alert_text('성공적으로 작성되었습니다.');
+			}).catch((err) => {
 				console.log('err', err)
 			});
 		},
@@ -93,7 +97,8 @@ export default {
 		}
 	},
 	components: {
-		Editor
+		Editor,
+		Alert
 	}
 }
 </script>
