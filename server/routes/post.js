@@ -9,7 +9,7 @@ moment.tz.setDefault("Asia/Seoul");
 const libs = require('../modules/lib');
 let lib = new libs();
 
-const writing = require('../../models/writing');
+const writing = require('../../models/post');
 
 router.post('/create', (req, res, next) => {
 	const schm = new writing();

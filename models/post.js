@@ -16,8 +16,8 @@ const Schema = mongoose.Schema;
 	count : 방문 횟수
 	categoryId : Category Mid ID
 */
-const md = lib.db_auto_increment('md_writting');
-const writingSchema = new Schema({
+const md = lib.db_auto_increment('md_post');
+const postSchema = new Schema({
 	_id: { type:Number, default: 0 },
 	title: String,
 	content: String,
@@ -26,5 +26,5 @@ const writingSchema = new Schema({
 	count: { type:Number, default:0 },
 	categoryId: { type:Number, default:0 }
 });
-writingSchema.plugin( auto_increment.plugin, md );
-module.exports = connection.model(md.model, writingSchema);
+postSchema.plugin( auto_increment.plugin, md );
+module.exports = connection.model(md.model, postSchema);

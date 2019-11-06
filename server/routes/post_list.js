@@ -4,7 +4,7 @@ const router = express.Router();
 const libs = require('../modules/lib');
 let lib = new libs();
 
-const writing = require('../../models/writing');
+const writing = require('../../models/post');
 
 router.post('/:contents', (req, res, next) => {
 	writing.find({'categoryId':req.params.contents}).then(write => {
