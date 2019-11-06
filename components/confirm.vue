@@ -42,13 +42,13 @@ export default {
 		}
 	},
 	methods: {
-		btn_false () {
-			this.dialog = false;
-			this.$parent.btn_false();
-		},
 		btn_true () {
 			this.dialog = false;
 			this.$parent.btn_true();
+		},
+		btn_false () {
+			this.dialog = false;
+			this.$parent.btn_false();
 		},
 		set_confirm (_type) {
 			if (_type) {

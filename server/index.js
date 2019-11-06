@@ -99,10 +99,18 @@ async function start () {
 		res.end();
 	});
 	/*===== E:Methods Block =====*/
-
+  const ban_ip = [];
 	app.all('*', (req, res, next) => {
-		res.append('modify', 'Made By zoz0312');
-		next();
+    res.append('modify', 'Made By zoz0312');
+    const ip = req.headers['x-forwarded-for'] ||
+      req.connection.remoteAddress ||
+      req.socket.remoteAddress ||
+      req.connection.socket.remoteAddress;
+    if( ban_ip.indexOf(ip) > -1 ){
+      res.status(404).end();
+    } else {
+      next();
+    }
 	});
 
 	app.get('*', (req, res, next) => {

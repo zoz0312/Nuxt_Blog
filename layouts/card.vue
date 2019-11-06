@@ -60,6 +60,8 @@ export default {
 			}).catch((err) => {
 				console.log('err', err);
 			});
+		},
+		btn_false () {
 		}
 	},
 	components: {
