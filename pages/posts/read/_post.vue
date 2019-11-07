@@ -37,6 +37,10 @@ export default {
 		}
 	},
 	mounted () {
+		this.$http.post('/api/postHit', { 'postId': this.post }).then((result) => {
+			console.log('HIT POST!!!');
+		});
+
 		this.$http.post('/post/' + this.post).then((result) => {
 			this.items = Object.assign({}, result.data.data);
 			this.$http.post('/category/' + this.items.categoryId).then((result) => {
