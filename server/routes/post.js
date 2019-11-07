@@ -1,18 +1,16 @@
 const express = require('express');
 const router = express.Router();
-
 const moment = require('moment');
-require('moment-timezone');
-
-moment.tz.setDefault("Asia/Seoul");
-
 const libs = require('../modules/lib');
 let lib = new libs();
 
-const writing = require('../../models/post');
+const posts = require('../../models/post');
+
+require('moment-timezone');
+moment.tz.setDefault("Asia/Seoul");
 
 router.post('/create', (req, res, next) => {
-	const schm = new writing();
+	let schm = new posts();
 	schm.title = req.body.title;
 	schm.content = req.body.contents;
 	schm.writer = 'zoz0312 (AJu)';
@@ -30,24 +28,21 @@ router.post('/create', (req, res, next) => {
 });
 
 router.post('/update', (req, res, next) => {
-	writing.findById({'_id':req.body._id}).then(post => {
-		post.title = req.body.title;
-		post.content = req.body.contents;
-		post.categoryId = req.body.category_id;
-		post.save( (err, save_post) => {
-			if( err ){
-				lib.rtn = {
-					err_desc: 'Save Fail\n' + err
-				};
-			} else {
-				lib.rtn = {
-					success: true,
-					succ_desc: 'update success\n' + save_post
-				};
-			}
-			res.send(lib.rtn_result());
-			res.end();
-		});
+	posts.updateOne({
+		'_id':req.body._id
+	},{
+		$set: {
+			title: req.body.title,
+			content: req.body.contents,
+			categoryId: req.body.category_id
+		}
+	}).then(() => {
+		lib.rtn = {
+			success: true,
+			succ_desc: 'update success'
+		};
+		res.send(lib.rtn_result());
+		res.end();
 	}).catch(err => {
 		lib.rtn = {
 			err_desc: err
@@ -58,7 +53,7 @@ router.post('/update', (req, res, next) => {
 });
 
 router.delete('/', (req, res, next) => {
-	writing.remove({ _id: req.body._id }).then( del_writing => {
+	posts.remove({ _id: req.body._id }).then( del_writing => {
 		if( err ){
 			lib.rtn = {
 				err_desc: 'Save Fail\n' + err
@@ -81,13 +76,12 @@ router.delete('/', (req, res, next) => {
 });
 
 router.post('/:post', (req, res, next) => {
-	writing.findOne({'_id':req.params.post}).then(write => {
+	posts.findOne({'_id':req.params.post}).then(write => {
 		lib.rtn = {
 			data: write,
 			success: true,
 			succ_desc: ''
 		}
-		console.log('write',write);
 		res.send(lib.rtn_result());
 		res.end();
 	}).catch(err => {

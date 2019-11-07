@@ -23,8 +23,8 @@ const postSchema = new Schema({
 	content: String,
 	writer: String,
 	createDate: String,
-	count: { type:Number, default:0 },
-	categoryId: { type:Number, default:0 }
+	categoryId: { type:Number, default:0 },
+	hitCount: { type:Number, default:0 }
 });
 postSchema.plugin( auto_increment.plugin, md );
 module.exports = connection.model(md.model, postSchema);
