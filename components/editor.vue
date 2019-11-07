@@ -10,9 +10,9 @@
 			plugins: [
 				'hr advlist autolink lists link image charmap print preview anchor',
 				'searchreplace visualblocks code fullscreen',
-				'insertdatetime media table paste code help wordcount'
+				'insertdatetime media table paste code help wordcount codesample'
 			],
-			toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | emoticons | fullscreen  preview | insertfile image pageembed template link | a11ycheck ltr rtl | showcomments addcomment',
+			toolbar: 'undo redo codesample | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange permanentpen formatpainter removeformat | pagebreak | emoticons | fullscreen  preview | insertfile image pageembed template link | a11ycheck ltr rtl | showcomments addcomment',
 			content_css: [
 				'//fonts.googleapis.com/earlyaccess/nanumgothic.css',
 				'//fonts.googleapis.com/earlyaccess/nanumgothiccoding.css',

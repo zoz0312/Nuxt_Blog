@@ -47,7 +47,7 @@ router.post('/update', (req, res, next) => {
 	}).then(() => {
 		lib.rtn = {
 			success: true,
-			succ_desc: 'update success\n' + save_category
+			succ_desc: 'update success'
 		};
 		res.send(lib.rtn_result());
 		res.end();

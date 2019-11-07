@@ -1,6 +1,6 @@
 <template>
 	<v-card
-		class="mx-auto pa-5 "
+		class="mx-auto pa-5"
 	>
 		<div id="post-category">
 			{{ category }}
@@ -29,6 +29,14 @@
 import '~/mixin/global_mixin'
 
 export default {
+	head: {
+		script: [
+			{ src: '/prism.js' }
+		],
+		link: [
+			{ rel: 'stylesheet', href: '/prism.css' }
+		]
+	},
 	asyncData ({ params }) {
 		return {
 			post: params.post
