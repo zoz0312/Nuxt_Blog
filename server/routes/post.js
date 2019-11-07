@@ -29,7 +29,7 @@ router.post('/create', (req, res, next) => {
 
 router.post('/update', (req, res, next) => {
 	posts.updateOne({
-		'_id':req.body._id
+		'_id': req.body._id
 	},{
 		$set: {
 			title: req.body.title,

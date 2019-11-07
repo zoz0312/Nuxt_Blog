@@ -38,22 +38,19 @@ router.post('/create', (req, res, next) => {
 });
 
 router.post('/update', (req, res, next) => {
-	category.findById({'_id':req.body._id}).then(category => {
-		category.title = req.body.title;
-		category.save( (err, save_category) => {
-			if( err ){
-				lib.rtn = {
-					err_desc: 'Save Fail\n' + err
-				};
-			} else {
-				lib.rtn = {
-					success: true,
-					succ_desc: 'update success\n' + save_category
-				};
-			}
-			res.send(lib.rtn_result());
-			res.end();
-		});
+	category.updateOne({
+		'_id': req.body._id
+	},{
+		$set: {
+			title: req.body.title
+		}
+	}).then(() => {
+		lib.rtn = {
+			success: true,
+			succ_desc: 'update success\n' + save_category
+		};
+		res.send(lib.rtn_result());
+		res.end();
 	}).catch(err => {
 		lib.rtn = {
 			err_desc: err
@@ -93,7 +90,6 @@ router.post('/:categoryId', (req, res, next) => {
 			success: true,
 			succ_desc: ''
 		}
-		console.log('category',category);
 		res.send(lib.rtn_result());
 		res.end();
 	}).catch(err => {
