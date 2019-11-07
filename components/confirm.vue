@@ -42,14 +42,8 @@ export default {
 		}
 	},
 	methods: {
-		btn_true () {
-			this.dialog = false;
-			this.$parent.btn_true();
-		},
-		btn_false () {
-			this.dialog = false;
-			this.$parent.btn_false();
-		},
+		btn_true () {},
+		btn_false () {},
 		set_confirm (_type) {
 			if (_type) {
 				this.type = _type;
@@ -69,6 +63,17 @@ export default {
 				break;
 			}
 			this.dialog = true;
+
+			return new Promise((resolve, reject) => {
+				this.btn_true = () => {
+					resolve(true);
+					this.dialog = false;
+				}
+				this.btn_false = () => {
+					resolve(false);
+					this.dialog = false;
+				}
+			});
 		}
 	}
 }

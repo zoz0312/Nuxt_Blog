@@ -32,7 +32,7 @@
 					text
 				>Fix</v-btn>
 				<v-btn
-					v-on:click="confirm_post"
+					v-on:click="delete_post"
 					text
 				>Delete</v-btn>
 			</v-card-actions>
@@ -46,22 +46,19 @@ import Confirm from '~/components/confirm';
 export default {
 	props: ['propsdata'],
 	methods: {
-		confirm_post () {
-			this.$refs.confirm.set_confirm('delete');
-		},
 		delete_post () {
+			this.$refs.confirm.set_confirm('delete').then((result) => {
+				if (result) {
+					this.$http.delete('/post', { data: { _id: this.propsdata._id } }).then((result) => {
+						this.get_post_list();
+					}).catch((err) => {
+						console.log('err', err);
+					});
+				}
+			});
 		},
 		get_post_list () {
 			this.$parent.get_post_list();
-		},
-		btn_true () {
-			this.$http.delete('/post', { data: { _id: this.propsdata._id } }).then((result) => {
-				this.get_post_list();
-			}).catch((err) => {
-				console.log('err', err);
-			});
-		},
-		btn_false () {
 		}
 	},
 	components: {
