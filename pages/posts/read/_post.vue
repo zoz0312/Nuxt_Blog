@@ -3,6 +3,7 @@
 		class="mx-auto pa-5"
 		max-width="1000"
 	>
+		<Loader ref="loader"/>
 		<div id="post-category">
 			{{ category }}
 		</div>
@@ -29,6 +30,7 @@
 
 <script>
 import '~/mixin/global_mixin'
+import Loader from '~/components/loader'
 
 export default {
 	head: {
@@ -51,16 +53,21 @@ export default {
 		}
 	},
 	mounted () {
-		this.$http.post('/api/postHit', { 'postId': this.post });
-
-		this.$http.post('/post/' + this.post).then((result) => {
+		this.$http.post('/api/postHit', { 'postId': this.post }).then(() => {
+			return this.$http.post('/post/' + this.post);
+		}).then((result) => {
 			this.items = Object.assign({}, result.data.data);
 			return this.$http.post('/category/' + this.items.categoryId);
 		}).then((result) => {
+			this.$refs.loader.loader_stop();
 			this.category = result.data.data.title;
 		}).catch((err) => {
+			this.$refs.loader.loader_stop();
 			console.log('err', err);
 		})
+	},
+	components: {
+		Loader
 	}
 }
 </script>
