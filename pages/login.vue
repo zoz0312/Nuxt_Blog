@@ -21,6 +21,7 @@
       v-model="user_pw"
       label="Password"
       :rules="pw_rule"
+			@keyup.enter="login"
     ></v-text-field>
     <v-btn
       class="mr-4 white--text"
