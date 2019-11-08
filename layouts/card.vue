@@ -13,10 +13,10 @@
 				<v-img
 					class="white--text align-end"
 					height="200px"
-					src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+					:src="propsdata.thumbnail"
 				>
-					<v-card-title class="headline mb-1">{{ titleSlice(propsdata.title) }}</v-card-title>
 				</v-img>
+				<v-card-title class="headline mb-1 text-shadow">{{ titleSlice(propsdata.title) }}</v-card-title>
 				<v-card-subtitle class="pb-1">{{ dateParse(propsdata.createDate) }}</v-card-subtitle>
 				<v-card-subtitle class="pt-0">{{ propsdata.writer }}</v-card-subtitle>
 			</v-card>

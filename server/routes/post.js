@@ -16,12 +16,14 @@ router.post('/create', (req, res, next) => {
 	schm.writer = 'zoz0312 (AJu)';
 	schm.createDate = moment().format('YYYY-MM-DDTHH:mm:ss');
 	schm.categoryId = req.body.category_id;
+	schm.thumbnail = req.body.thumbnail;
 	schm.save( (err, schm) => {
 		if( err ) return console.error(err);
 		lib.rtn = {
 			success: true,
 			succ_desc: ''
 		}
+		console.log('schm', schm);
 		res.send(lib.rtn_result());
 		res.end();
 	});

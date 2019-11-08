@@ -4,10 +4,10 @@
 		max-width="800"
 	>
 		<Alert ref="alert"/>
-		<v-row>
+		<v-row align="end">
 			<v-col cols="3">
 				<v-overflow-btn
-					class="my-2"
+					class="mt-2"
 					color="blue darken-1"
 					item-color="blue darken-1"
 					:items="dropdown_edit"
@@ -23,6 +23,23 @@
 					color="blue darken-1"
 					:rules="title_rule"
 				></v-text-field>
+			</v-col>
+		</v-row>
+		<v-row>
+			<v-col class="py-0">
+				<v-file-input
+					:v-model="thumbnail"
+					accept="image/png, image/jpeg"
+					placeholder="썸네일을 넣어주세요"
+					prepend-icon="mdi-camera"
+					label="썸네일"
+					@change="thumbnail_change"
+				></v-file-input>
+			</v-col>
+		</v-row>
+		<v-row>
+			<v-col>
+				<img :src="thumbnail"/>
 			</v-col>
 		</v-row>
 		<Editor	ref="editor" />
@@ -50,6 +67,8 @@ export default {
 		return {
 			title: '',
 			dropdown_edit: [],
+			thumbnail: [],
+			thumbnail_size: 0,
 			category_id: [],
 			category: '',
 			editor_val: '',
@@ -58,7 +77,8 @@ export default {
 			],
 			title_rule: [
 				v => !!v || '제목을 입력해주세요.'
-			]
+			],
+			imgSrc: null
 		}
 	},
 	mounted () {
@@ -81,6 +101,17 @@ export default {
 				console.log('err', err);
 			})
 		},
+		thumbnail_change (file) {
+			if (file !== undefined) {
+				const reader = new FileReader();
+				reader.onload = (event) => {
+					this.imgSrc = file;
+					this.thumbnail = event.target.result;
+				}
+				reader.readAsDataURL(file)
+				this.thumbnail_size = file.size;
+			}
+		},
 		write () {
 			const editorText = this.$refs.editor.return_value();
 			if (!this.useString(this.category)) {
@@ -95,11 +126,16 @@ export default {
 				this.$refs.alert.set_alert_text('내용을 입력해주세요.', 'error');
 				return;
 			}
+			if (this.thumbnail_size > 2048000) {
+				this.$refs.alert.set_alert_text('썸네일의 크기가 2MB 이상입니다.', 'error');
+				return;
+			}
 			const d = {
 				_id: this.propsdata.post ? this.propsdata.post : 0,
 				title: this.title,
 				contents: editorText,
-				category_id: this.category_id[this.dropdown_edit.indexOf(this.category)]
+				category_id: this.category_id[this.dropdown_edit.indexOf(this.category)],
+				thumbnail: this.thumbnail
 			};
 			this.$http.post('/post/' + this.propsdata.type, d).then(() => {
 				this.$refs.alert.set_alert_text('성공적으로 작성되었습니다.', 'success', true);
@@ -123,3 +159,8 @@ export default {
 	}
 }
 </script>
+<style scoped>
+img {
+	width: 100%;
+}
+</style>
