@@ -1,6 +1,7 @@
 <template>
 	<v-card
 		class="mx-auto pa-5"
+		max-width="1000"
 	>
 		<div id="post-category">
 			{{ category }}
@@ -21,6 +22,7 @@
 		<div
 			v-html="items.content"
 			max-width="100%"
+			id="html-text"
 		></div>
 	</v-card>
 </template>
@@ -63,7 +65,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #post-category {
 	color: #666666;
 	font-size: 1rem;
@@ -74,7 +76,7 @@ export default {
 	color: #428bca;
 	font-size: 2rem;
 	text-align: left;
-	font-weight: 300;
+	font-weight: 400;
 }
 #post-writer {
 	color: #000000;

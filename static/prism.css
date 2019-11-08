@@ -139,3 +139,7 @@ https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javasc
  .token.entity {
 	 cursor: help;
  }
+ #html-text pre[class*="language-"] {
+	background-color: #F5F5F5 !important;
+	border-radius: 4px;
+}
