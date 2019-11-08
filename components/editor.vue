@@ -23,8 +23,7 @@
 			],
 			content_style: '.mce-content-body {font-size:15px;font-family:Nanum Gothic;}',
 			font_formats: '나눔고딕=Nanum Gothic;나눔바른고딕=Nanum Barun Gothic;나눔고딕코딩=Nanum Gothic Coding;나눔명조=Nanum Myeongjo;나눔손글씨 붓체=Nanum Brush Script;나눔손글씨 펜체=Nanum Pen Script;',
-			fontName: 'Nanum Gothic',
-			paste_data_images: true
+			fontName: 'Nanum Gothic'
 		}"
 		v-model="editor_val"
 	></editor>
