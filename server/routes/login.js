@@ -8,17 +8,13 @@ router.post('/', function(req, res, next) {
 	const user_id = req.body.username;
 	const user_pw = req.body.password;
 
-	if( user_id != server_config.server.id && user_pw != server_config.server.pw ){
-		lib.rtn.err_desc = 'login fail';
-		res.status(401).send(lib.rtn_result());
-	} else {
-		if( user_id == server_config.server.id ){
+	if( user_id === server_config.server.id && user_pw === server_config.server.pw ){
+		if( user_id === server_config.server.id ){
 			req.session.permission = 'admin';
 		} else {
 			req.session.permission = 'user';
 		}
 		req.session.user_id = user_id;
-		req.session.user_pw = user_pw;
 		req.session.save(() => {
 			lib.rtn = {
 				data: { auth: req.session.permission },
@@ -27,6 +23,9 @@ router.post('/', function(req, res, next) {
 			}
 			res.send(lib.rtn_result());
 		});
+	} else {
+		lib.rtn.err_desc = 'login fail';
+		res.send(lib.rtn_result());
 	}
 });
 module.exports = router;

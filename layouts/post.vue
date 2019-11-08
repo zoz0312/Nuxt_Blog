@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import Editor from '~/components/editor.vue'
-import Alert from '~/components/alert.vue'
+import Editor from '~/components/editor'
+import Alert from '~/components/alert'
 
 export default {
 	props: ['propsdata'],

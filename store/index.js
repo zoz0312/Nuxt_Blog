@@ -17,16 +17,13 @@ export const actions = {
 		}
 	},
 	async login ({ commit }, { username, password }) {
-		try {
-			const { data } = await axios.post('/login', { username, password })
-			commit('SET_USER', data.data.auth)
-			this.$router.push('/')
-		} catch (error) {
-			if (error.response && error.response.status === 401) {
-				throw new Error('Bad credentials')
+		await axios.post('/login', { username, password }).then((result) => {
+			if (result.data.success) {
+				commit('SET_USER', result.data.auth);
 			}
-			throw error
-		}
+		}).catch((err) => {
+			console.log('Login Error', err);
+		})
 	},
 	async logout ({ commit }) {
 		await axios.post('/logout')

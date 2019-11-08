@@ -10,7 +10,7 @@
 			elevation="5"
 			min-width="100%"
 			transition="scale-transition">
-      {{ text }}
+      <v-icon v-if="alertType === 'success'" class="mr-4">mdi-check-circle</v-icon>{{ text }}
     </v-alert>
   </v-overlay>
 </template>
