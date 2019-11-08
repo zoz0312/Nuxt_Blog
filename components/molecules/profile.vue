@@ -2,6 +2,7 @@
    <v-card
     class="mx-auto"
     tile
+		min-width="220"
   >
 		<v-img
 			:src="''"

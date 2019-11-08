@@ -30,13 +30,11 @@
 
 <script>
 import '~/mixin/global_mixin'
+import Prism from 'prismjs'
 import Loader from '~/components/loader'
 
 export default {
 	head: {
-		script: [
-			{ src: '/prism.js' }
-		],
 		link: [
 			{ rel: 'stylesheet', href: '/prism.css' }
 		]
@@ -61,6 +59,7 @@ export default {
 		}).then((result) => {
 			this.$refs.loader.loader_stop();
 			this.category = result.data.data.title;
+			Prism.highlightAll();
 		}).catch((err) => {
 			this.$refs.loader.loader_stop();
 			console.log('err', err);
@@ -101,14 +100,5 @@ export default {
 	font-size: 0.9rem;
 	text-align: right;
 	font-weight: 300;
-}
-hr {
-	display: block;
-	flex: 1 1 0px;
-	max-width: 100%;
-	max-height: 0px;
-	border-color: rgba(0, 0, 0, 0.3);
-	border-width: thin 0 0 0;
-	margin: 1rem 0;
 }
 </style>

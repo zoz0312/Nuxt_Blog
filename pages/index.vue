@@ -1,10 +1,11 @@
 <template>
   <v-row>
     <v-col>
-		<InfoCard />
+			<InfoCard />
     </v-col>
     <v-col>
-      <v-card>
+      <v-card
+				min-width="200">
         <v-card-title class="headline">
           Welcome to AJu Blog!
         </v-card-title>

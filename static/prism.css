@@ -144,23 +144,36 @@ https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javasc
 	border-radius: 4px;
 }
 table {
-	width: 90% !important;
+	width: 94% !important;
 	border-spacing: 0;
 	border: 0 solid #FFFFFF;
-	margin-left: 5%;
-	margin-right: 5%;
+	margin-left: 3%;
+	margin-right: 3%;
 }
 table tr {
 	border: 0 solid #FFFFFF;
 }
 table tr th {
-	padding: .6rem 0 !important;
+	padding: .6rem .3rem !important;
+	border: 0 solid #FFFFFF;
 	border-bottom: 2px solid #428bca;
 	color: #428bca;
 }
 table tr > td {
-	padding: .6rem 0 !important;
+	padding: .6rem .3rem !important;
 	border: 0 solid #FFFFFF;
 	border-bottom: 1px solid #E0E0E0;
 	color: #333333;
+}
+hr {
+	display: block;
+	flex: 1 1 0px;
+	max-width: 100%;
+	max-height: 0px;
+	border-color: rgba(0, 0, 0, 0.3);
+	border-width: thin 0 0 0;
+	margin: 1rem 0;
+}
+img {
+	width: 100%;
 }
