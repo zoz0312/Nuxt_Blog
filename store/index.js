@@ -19,7 +19,7 @@ export const actions = {
 	async login ({ commit }, { username, password }) {
 		await axios.post('/login', { username, password }).then((result) => {
 			if (result.data.success) {
-				commit('SET_USER', result.data.auth);
+				commit('SET_USER', result.data.data.auth);
 			}
 		}).catch((err) => {
 			console.log('Login Error', err);
