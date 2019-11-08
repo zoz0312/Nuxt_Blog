@@ -148,6 +148,7 @@ export default {
 				this.title = result.data.data.title;
 				this.$refs.editor.intert_value(result.data.data.content);
 				this.category = this.dropdown_edit[this.category_id.indexOf(result.data.data.categoryId)];
+				this.thumbnail = result.data.data.thumbnail;
 			}).catch((err) => {
 				console.log('err', err);
 			})
@@ -161,6 +162,6 @@ export default {
 </script>
 <style scoped>
 img {
-	width: 100%;
+	max-width: 100%;
 }
 </style>

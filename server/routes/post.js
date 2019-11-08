@@ -23,7 +23,6 @@ router.post('/create', (req, res, next) => {
 			success: true,
 			succ_desc: ''
 		}
-		console.log('schm', schm);
 		res.send(lib.rtn_result());
 		res.end();
 	});
@@ -36,7 +35,8 @@ router.post('/update', (req, res, next) => {
 		$set: {
 			title: req.body.title,
 			content: req.body.contents,
-			categoryId: req.body.category_id
+			categoryId: req.body.category_id,
+			thumbnail: req.body.thumbnail
 		}
 	}).then(() => {
 		lib.rtn = {

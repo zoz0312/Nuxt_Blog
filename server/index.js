@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const app = express();
 
 const bodyParser = require('body-parser');
-const exec = require('child_process').exec;
 const fs = require('file-system');
 const logger = require('morgan');
 const session = require('express-session');
@@ -31,7 +30,7 @@ const config = require('../nuxt.config.js');
 config.dev = process.env.NODE_ENV !== 'production';
 
 /*===== S:Node Modules =====*/
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '10mb', extended: true}));
 app.use(logger(':remote-addr\t - [:date[iso]] ":method" ":url HTTP/:http-version" :status :res[content-length]', {
   stream: fs.createWriteStream('./access.log', {flags: 'a'})
 }));

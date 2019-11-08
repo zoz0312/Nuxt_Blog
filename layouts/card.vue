@@ -5,8 +5,8 @@
 			<v-card
 				class="mx-auto"
 				outlined
-				max-width="300"
-				min-width="300"
+				max-width="302"
+				min-width="302"
 				:elevation="hover ? 12 : 2"
 				:to="'/posts/read/' + propsdata._id"
 			>
