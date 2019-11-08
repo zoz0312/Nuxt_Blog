@@ -23,13 +23,11 @@
       :rules="pw_rule"
     ></v-text-field>
     <v-btn
-      class="mr-4"
+      class="mr-4 white--text"
       block
+			color="#428bca"
       @click="login"
     >Login</v-btn>
-		<NuxtLink to="/secret">
-      Back to the home page
-    </NuxtLink>
   </v-card>
 </template>
 
