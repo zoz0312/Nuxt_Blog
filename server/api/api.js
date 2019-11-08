@@ -6,6 +6,7 @@ let lib = new libs();
 
 const postHit = require('../../models/post_hit');
 const writing = require('../../models/post');
+const pageHit = require('../../models/page_hit');
 
 require('moment-timezone');
 moment.tz.setDefault("Asia/Seoul");
@@ -66,5 +67,22 @@ router.post('/postHit', (req, res, next) => {
 		res.send(lib.rtn_result());
 		res.end();
 	});
+});
+
+router.post('/pageHit', (req, res, next) => {
+	const userIp = req.body.userIp;
+	const curDate = moment().format('YYYY-MM-DD');
+	pageHit.find({
+		$and: [{'hitDate': curDate, 'hitIp': userIp}]
+	}).then( hitResult => {
+		if( hitResult === null || hitResult.length === 0 ){
+			//HIT
+			let schm = new pageHit();
+			schm.hitIp = userIp;
+			schm.hitDate = curDate;
+			schm.save();
+		}
+	});
+	res.end();
 });
 module.exports = router;
