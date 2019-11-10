@@ -85,4 +85,53 @@ router.post('/pageHit', (req, res, next) => {
 	});
 	res.end();
 });
+router.post('/pageHitData', (req, res, next) => {
+	let totalCount = 0;
+	const dateArr = [
+		moment().format('YYYY-MM-DD'),
+		moment().subtract(1, 'days').format('YYYY-MM-DD'),
+		moment().subtract(2, 'days').format('YYYY-MM-DD'),
+		moment().subtract(3, 'days').format('YYYY-MM-DD'),
+		moment().subtract(4, 'days').format('YYYY-MM-DD'),
+		moment().subtract(5, 'days').format('YYYY-MM-DD'),
+		moment().subtract(6, 'days').format('YYYY-MM-DD')
+	]
+	pageHit.countDocuments().then((count) => {
+		totalCount = count;
+		return pageHit.find({
+			$or: [
+				{'hitDate': dateArr[0]},
+				{'hitDate': dateArr[1]},
+				{'hitDate': dateArr[2]},
+				{'hitDate': dateArr[3]},
+				{'hitDate': dateArr[4]},
+				{'hitDate': dateArr[5]},
+				{'hitDate': dateArr[6]}
+			]
+		});
+	}).then((hitResult) => {
+		let count = [0, 0, 0, 0, 0, 0, 0];
+		const obj = Object.keys(hitResult);
+		for( let i=0; i<obj.length; i++ ){
+			count[dateArr.indexOf(hitResult[i].hitDate)]++;
+		}
+		lib.rtn = {
+			data: {
+				totalCount,
+				count,
+				dateArr
+			},
+			success: true,
+			succ_desc: 'update success'
+		};
+		res.send(lib.rtn_result());
+		res.end();
+	}).catch( err => {
+		lib.rtn = {
+			err_desc: err
+		};
+		res.send(lib.rtn_result());
+		res.end();
+	});
+});
 module.exports = router;
