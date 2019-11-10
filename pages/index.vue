@@ -10,7 +10,7 @@
           Welcome to AJu Blog!
         </v-card-title>
         <v-card-text>
-          <weekChart />
+					<weekChart />
         </v-card-text>
         <v-card-actions
           v-if="$store.state.authUser === 'admin'">
@@ -38,12 +38,6 @@ import InfoCard from '~/components/molecules/profile'
 import weekChart from '~/components/weekChart'
 
 export default {
-	mounted () {
-		this.$http.post('/api/pageHitData').then((result) => {
-			this.chartOptions.xaxis.categories.push(...result.data.data.dateArr);
-			this.series[0].data.push(...result.data.data.count);
-		})
-	},
 	components: {
 		InfoCard,
 		weekChart

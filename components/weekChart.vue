@@ -15,7 +15,9 @@
 			</div>
 		</v-card-text>
 		</v-card>
-		<apexchart max-width="300" type="area" :options="chartOptions" :series="series"></apexchart>
+		<client-only>
+			<VueApexCharts max-width="300" type="area" :options="chartOptions" :series="series"></VueApexCharts>
+		</client-only>
 	</div>
 </template>
 
@@ -60,7 +62,6 @@ export default {
 		this.$http.post('/api/pageHitData').then((result) => {
 			this.chartOptions.xaxis.categories.push(...result.data.data.dateArr);
 			this.series[0].data.push(...result.data.data.count);
-			console.log(result)
 			this.total = result.data.data.totalCount;
 		})
 	}

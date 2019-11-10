@@ -27,12 +27,6 @@ module.exports = {
   css: [
   ],
   /*
-  ** Plugins to load before mounting the App
-  */
-  plugins: [
-		{ src : '~/plugins/vue-apexchart.js', ssr : false },
-  ],
-  /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
@@ -81,30 +75,21 @@ module.exports = {
     }
   },
   /*
+  ** Plugins to load before mounting the App
+  */
+  plugins: [
+		{ src : '~/plugins/vue-apexchart.js', ssr : false },
+  ],
+  /*
   ** Build configuration
   */
   build: {
     vendor : [
-			'vue-apexchart.js'
-		],
+			'vue-apexchart'
+    ],
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {
-      const vueLoader = config.module.rules.find(
-        rule => rule.loader === "vue-loader"
-      );
-      vueLoader.options.transformToRequire = {
-        img: "src",
-        image: "xlink:href",
-        "b-img": "src",
-        "b-img-lazy": ["src", "blank-src"],
-        "b-card": "img-src",
-        "b-card-img": "img-src",
-        "b-carousel-slide": "img-src",
-        "b-embed": "src"
-      };
-    }
   },
   serverMiddleware: [
   ]
