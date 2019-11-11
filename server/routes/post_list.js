@@ -7,7 +7,21 @@ let lib = new libs();
 const writing = require('../../models/post');
 
 router.post('/:contents', (req, res, next) => {
-	writing.find({'categoryId':req.params.contents}).then(write => {
+	const findParam = {
+		'categoryId':req.params.contents
+	}
+	const projection = {
+		_id: true,
+		title: true,
+		createDate: true,
+		writer: true,
+		thumbnail: true
+	};
+	const sortFilter = {
+		'_id': -1
+	}
+
+	writing.find(findParam, projection).sort(sortFilter).then(write => {
 		let arr = [];
 		for( let key in write ){
 			arr.push(write[key]);

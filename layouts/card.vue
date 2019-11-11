@@ -3,10 +3,8 @@
 		<Confirm ref="confirm"/>
 		<v-hover v-slot:default="{ hover }" class="text-left">
 			<v-card
-				class="mx-auto"
+				class="mx-auto card-size"
 				outlined
-				max-width="302"
-				min-width="302"
 				:elevation="hover ? 12 : 2"
 				:to="'/posts/read/' + propsdata._id"
 			>
@@ -66,3 +64,17 @@ export default {
 	}
 }
 </script>
+<style scoped>
+@media (max-width: 389px) {
+  .card-size {
+    max-width: 232px !important;
+		min-width: 232px !important;
+  }
+}
+@media (min-width: 390px) {
+	.card-size {
+		max-width: 302px !important;
+		min-width: 302px !important;
+	}
+}
+</style>

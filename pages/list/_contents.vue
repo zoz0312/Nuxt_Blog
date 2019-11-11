@@ -8,7 +8,6 @@
 		>
 			<Card
 				v-bind:propsdata="item"
-				max-height="300"
 				class="mb-6 ml-5 mr-5"
 				:ref="'card'+index"
 			></Card>
@@ -36,7 +35,7 @@ export default {
 	methods: {
 		get_post_list () {
 			this.$http.post('/list/' + this.contents).then((result) => {
-				this.items = result.data.data.reverse();
+				this.items = result.data.data;
 			}).catch((err) => {
 				console.log('err', err);
 			});
