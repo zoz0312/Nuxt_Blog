@@ -15,6 +15,8 @@ const Schema = mongoose.Schema;
 	createDate : 작성일
 	count : 방문 횟수
 	categoryId : Category Mid ID
+	hitCount : Post 조회수
+	thumbnail : 썸네일 String
 */
 const md = lib.db_auto_increment('md_post');
 const postSchema = new Schema({

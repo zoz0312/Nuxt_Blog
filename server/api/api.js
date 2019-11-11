@@ -80,6 +80,7 @@ router.post('/pageHit', (req, res, next) => {
 			let schm = new pageHit();
 			schm.hitIp = userIp;
 			schm.hitDate = curDate;
+			schm.hitTime = moment().format('HH:mm:ss');
 			schm.save();
 		}
 	});

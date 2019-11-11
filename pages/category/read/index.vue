@@ -23,16 +23,34 @@
 				>Delete</v-btn>
 			</v-card-actions>
 		</v-card>
+		<draggable v-model="myArray" group="people" @start="drag=true" @end="drag=false">
+			<div v-for="element in myArray" :key="element.id">{{element.name}}</div>
+		</draggable>
 	</v-container>
 </template>
 
 <script>
 import '~/mixin/global_mixin'
+import draggable from 'vuedraggable'
 
 export default {
 	data () {
 		return {
-			categorys: {}
+			categorys: {},
+			myArray: [
+				{
+					'name': 'John',
+					'id': 0
+				},
+				{
+					'name': 'Joao',
+					'id': 1
+				},
+				{
+					'name': 'Jean',
+					'id': 2
+				}
+			]
 		}
 	},
 	mounted () {
@@ -53,6 +71,9 @@ export default {
 				console.log('err', err);
 			})
 		}
+	},
+	components: {
+		draggable
 	}
 }
 </script>
