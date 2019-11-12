@@ -141,6 +141,7 @@ https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javasc
  }
  #html-text pre[class*="language-"] {
 	background-color: #F5F5F5 !important;
+	border: 1px solid #E5E5E5;
 	border-radius: 4px;
 }
 table {
@@ -176,4 +177,11 @@ hr {
 }
 img {
 	width: 100%;
+}
+code {
+	width: 100%;
+	box-shadow: none !important;
+}
+.v-application code:before {
+	content: "" !important;
 }
