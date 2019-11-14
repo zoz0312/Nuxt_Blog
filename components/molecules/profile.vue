@@ -5,9 +5,11 @@
 		min-width="220"
   >
 		<v-img
-			:src="''"
-			class="white--text align-end"
-			height="200px"
+			src="/logo.jpg"
+			class="white--text mx-auto"
+			height="220px"
+			width="220px"
+			center
 		></v-img>
 		<v-card-title>AJu</v-card-title>
 		<v-card-subtitle>흔하지 않고 싶은 개발자</v-card-subtitle>
