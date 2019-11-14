@@ -27,6 +27,12 @@
             :to="'/category/create'"
           >카테고리 생성하기
           </v-btn>
+          <v-btn
+            class="white--text"
+            color="#428bca"
+            :to="'/category/fix'"
+          >카테고리 목록
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
