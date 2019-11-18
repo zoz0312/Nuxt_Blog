@@ -27,10 +27,6 @@
 			outlined
 		>
 			<v-card-actions>
-				<v-btn
-					color="success"
-					v-on:click="add_category"
-				>추가하기</v-btn>
         <v-spacer />
 				<v-btn
 					color="#428bca"
@@ -70,9 +66,6 @@ export default {
 				console.log('err', err);
 			})
 		},
-		add_category () {
-			this.categorys.push({ 'depth': [] });
-		},
 		delete_category (_id) {
 			this.$refs.confirm.set_confirm('delete').then((result) => {
 				if (result) {
@@ -87,16 +80,23 @@ export default {
 		apply_category () {
 			this.post_arr = [];
 			this.filter_category(JSON.parse(JSON.stringify(this.categorys)), 0);
+			console.log('post_arr', this.post_arr);
 		},
-		filter_category (obj, num) {
+		filter_category (obj, curDepth, id) {
 			const key = Object.keys(obj);
-			const curNum = num;
+			const depth = curDepth;
+			let order = 1;
+
 			for (let i = 0; i < key.length; i++) {
+				const parentId = obj[key[i]]._id;
 				if (obj[key[i]].depth.length > 0) {
-					this.filter_category(JSON.parse(JSON.stringify(obj[key[i]].depth)), ++num);
+					this.filter_category(JSON.parse(JSON.stringify(obj[key[i]].depth)), depth + 1, parentId);
 				}
-				obj[key[i]].depth = curNum;
+				obj[key[i]].order = order;
+				obj[key[i]].depth = depth;
+				obj[key[i]].parentId = depth === 0 ? 0 : id;
 				this.post_arr.push(obj[key[i]]);
+				order++;
 			}
 		}
 	},
