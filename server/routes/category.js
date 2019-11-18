@@ -40,27 +40,36 @@ router.post('/create', (req, res, next) => {
 });
 
 router.post('/update', (req, res, next) => {
-	category.updateOne({
-		'_id': req.body._id
-	},{
-		$set: {
-			title: req.body.title,
-			parentIdx: req.body.parentIdx
-		}
-	}).then(() => {
-		lib.rtn = {
-			success: true,
-			succ_desc: 'update success'
-		};
-		res.send(lib.rtn_result());
-		res.end();
-	}).catch(err => {
-		lib.rtn = {
-			err_desc: err
-		};
-		res.send(lib.rtn_result());
-		res.end();
-	});
+	let update_cnt = 0;
+	const arr = req.body.post_arr;
+	const len = arr.length;
+
+	for( let i=0; i<len; i++ ){
+		category.updateOne({
+			'_id': arr[i]._id
+		},{
+			$set: {
+				title: arr[i].title,
+				parentIdx: arr[i].parentIdx
+			}
+		}).then(() => {
+			update_cnt++;
+			if( update_cnt === len ){
+				lib.rtn = {
+					success: true,
+					succ_desc: 'update success'
+				};
+				res.send(lib.rtn_result());
+				res.end();
+			}
+		}).catch(err => {
+			lib.rtn = {
+				err_desc: 'len: ' + len + 'success: '+ update_cnt + ' ' + err
+			};
+			res.send(lib.rtn_result());
+			res.end();
+		});
+	}
 });
 
 router.delete('/', (req, res, next) => {

@@ -58,9 +58,6 @@ export default {
 		}
 	},
 	mounted () {
-		if (this.propsdata.type === 'update') {
-			this.get_category_id();
-		}
 		this.get_category();
 	},
 	methods: {
@@ -81,16 +78,6 @@ export default {
 					console.log('i', i)
 				}
 				console.log('this.dropdown_edit', this.dropdown_edit);
-				if (this.propsdata.type === 'update') {
-					this.get_post();
-				}
-			}).catch((err) => {
-				console.log('err', err);
-			})
-		},
-		get_category_id () {
-			this.$http.post('/category/' + this.propsdata.post).then((result) => {
-				this.title = result.data.data.title;
 			}).catch((err) => {
 				console.log('err', err);
 			})

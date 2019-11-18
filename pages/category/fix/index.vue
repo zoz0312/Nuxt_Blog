@@ -1,27 +1,8 @@
 <template>
 	<v-container>
 		<Confirm ref="confirm"/>
-		<draggable v-model="categorys" group="people" @start="drag=true" @end="drag=false">
-			<div
-				v-for="item in categorys"
-				:key="item._id">
-				<v-text-field
-					label="카테고리 이름"
-					solo
-					v-model="item.title"
-				>
-				<template v-slot:append>
-					<v-btn
-						v-on:click="delete_category( item._id )"
-						text
-						color="error"
-					><v-icon>mdi-delete</v-icon></v-btn>
-				</template>
-				</v-text-field>
-			</div>
-		</draggable>
 		<h3>카테고리 목록</h3>
-		<nested-draggable :tasks="categorys" />
+		<nested-draggable :tasks="categories" />
 		<v-card
 			class="mt-4"
 			outlined
@@ -35,20 +16,18 @@
 				>적용하기</v-btn>
 			</v-card-actions>
 		</v-card>
-		{{ categorys }}
 	</v-container>
 </template>
 
 <script>
 import '~/mixin/global_mixin'
-import draggable from 'vuedraggable'
 import nestedDraggable from '~/components/nested';
 import Confirm from '~/components/confirm';
 
 export default {
 	data () {
 		return {
-			categorys: [],
+			categories: [],
 			post_arr: []
 		}
 	},
@@ -64,7 +43,7 @@ export default {
 				result.data.data.sort((a, b) => {
 					return a.parentIdx < b.parentIdx ? -1 : a.parentIdx > b.parentIdx ? 1 : 0;
 				})
-				this.categorys = result.data.data;
+				this.categories = this.parse_client_side(result.data.data);
 			}).catch((err) => {
 				console.log('err', err);
 			})
@@ -81,8 +60,15 @@ export default {
 			});
 		},
 		apply_category () {
-			this.post_arr = [];
-			this.parse_server_side(JSON.parse(JSON.stringify(this.categorys)), 0, '0');
+			this.$refs.confirm.set_confirm('apply').then((result) => {
+				this.post_arr = [];
+				this.parse_server_side(JSON.parse(JSON.stringify(this.categories)), 0, '0');
+				this.$http.post('/category/update', { post_arr: this.post_arr }).then((result) => {
+					// Alert
+				}).catch((err) => {
+					console.log('err', err);
+				})
+			});
 		},
 		parse_server_side (obj, curDepth, parentKey) {
 			const key = Object.keys(obj);
@@ -100,29 +86,26 @@ export default {
 				order++;
 			}
 		},
-		parse_client_side (parentObj, curDepth) {
-			const key = Object.keys(parentObj);
-			const depth = curDepth;
-			const setObj = {};
-
+		parse_client_side (postData, rtn = []) {
+			const key = Object.keys(postData);
 			for (let i = 0; i < key.length; i++) {
-				if (depth === 0) {
-					this.categorys.push(parentObj[key[i]]);
-				} else if (depth === 1) {
-					this.parse_client_side(setObj, depth + 1);
-					// reObj.push(underDepth(reObj, arr[key[i]]));
-					// reObj
+				const sp = postData[key[i]].parentIdx.split('.');
+				switch (sp.length) {
+				case 1:
+					rtn.push(postData[key[i]]);
+					break;
+				case 2:
+					rtn[sp[0]].child.push(postData[key[i]]);
+					break;
+				case 3:
+					rtn[sp[0]].child[sp[1]].child.push(postData[key[i]]);
+					break;
 				}
 			}
-			console.log('setObj', setObj);
-			return setObj;
-		},
-		find_obj (obj) {
-
+			return rtn;
 		}
 	},
 	components: {
-		draggable,
 		nestedDraggable,
 		Confirm
 	}
