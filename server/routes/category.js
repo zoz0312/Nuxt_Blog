@@ -25,6 +25,8 @@ router.post('/', (req, res, next) => {
 router.post('/create', (req, res, next) => {
 	const schm = new category();
 	schm.title = req.body.title;
+	schm.parentIdx = req.body.parentIdx;
+	schm.depth = req.body.depth;
 	schm.save( (err) => {
 		if( err ){
 			console.error(err);
@@ -42,7 +44,8 @@ router.post('/update', (req, res, next) => {
 		'_id': req.body._id
 	},{
 		$set: {
-			title: req.body.title
+			title: req.body.title,
+			parentIdx: req.body.parentIdx
 		}
 	}).then(() => {
 		lib.rtn = {

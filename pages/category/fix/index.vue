@@ -59,8 +59,11 @@ export default {
 		update_category () {
 			this.$http.post('/category').then((result) => {
 				for (let i = 0; i < result.data.data.length; i++) {
-					result.data.data[i].depth = [];
+					result.data.data[i].child = [];
 				}
+				result.data.data.sort((a, b) => {
+					return a.parentIdx < b.parentIdx ? -1 : a.parentIdx > b.parentIdx ? 1 : 0;
+				})
 				this.categorys = result.data.data;
 			}).catch((err) => {
 				console.log('err', err);
@@ -79,25 +82,43 @@ export default {
 		},
 		apply_category () {
 			this.post_arr = [];
-			this.filter_category(JSON.parse(JSON.stringify(this.categorys)), 0);
-			console.log('post_arr', this.post_arr);
+			this.parse_server_side(JSON.parse(JSON.stringify(this.categorys)), 0, '0');
 		},
-		filter_category (obj, curDepth, id) {
+		parse_server_side (obj, curDepth, parentKey) {
 			const key = Object.keys(obj);
 			const depth = curDepth;
 			let order = 1;
 
 			for (let i = 0; i < key.length; i++) {
-				const parentId = obj[key[i]]._id;
-				if (obj[key[i]].depth.length > 0) {
-					this.filter_category(JSON.parse(JSON.stringify(obj[key[i]].depth)), depth + 1, parentId);
+				const parentIdx = depth === 0 ? `${i}` : `${parentKey}.${i}`;
+				if (obj[key[i]].child.length > 0) {
+					this.parse_server_side(JSON.parse(JSON.stringify(obj[key[i]].child)), depth + 1, parentIdx);
 				}
 				obj[key[i]].order = order;
-				obj[key[i]].depth = depth;
-				obj[key[i]].parentId = depth === 0 ? 0 : id;
+				obj[key[i]].parentIdx = parentIdx;
 				this.post_arr.push(obj[key[i]]);
 				order++;
 			}
+		},
+		parse_client_side (parentObj, curDepth) {
+			const key = Object.keys(parentObj);
+			const depth = curDepth;
+			const setObj = {};
+
+			for (let i = 0; i < key.length; i++) {
+				if (depth === 0) {
+					this.categorys.push(parentObj[key[i]]);
+				} else if (depth === 1) {
+					this.parse_client_side(setObj, depth + 1);
+					// reObj.push(underDepth(reObj, arr[key[i]]));
+					// reObj
+				}
+			}
+			console.log('setObj', setObj);
+			return setObj;
+		},
+		find_obj (obj) {
+
 		}
 	},
 	components: {

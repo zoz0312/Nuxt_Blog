@@ -20,7 +20,7 @@
 					><v-icon>mdi-delete</v-icon></v-btn>
 				</template>
 				</v-text-field>
-				<nested-draggable :tasks="el.depth" />
+				<nested-draggable :tasks="el.child" />
 			</li>
 		</draggable>
 	</v-card>
