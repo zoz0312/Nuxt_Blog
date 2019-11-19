@@ -49,6 +49,7 @@ export default {
 			})
 		},
 		delete_category (_id) {
+			console.log('parent');
 			this.$refs.confirm.set_confirm('delete').then((result) => {
 				if (result) {
 					this.$http.delete('/category', { data: { _id } }).then((result) => {

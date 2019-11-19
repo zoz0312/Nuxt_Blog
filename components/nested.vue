@@ -2,11 +2,10 @@
 	<v-card
     class="mb-5 mr-1 border-line"
   >
-		<Confirm ref="confirm"/>
 		<draggable class="dragArea" tag="ul" :list="tasks" :group="{ name: 'g1' }">
 			<li
 				v-for="(el, index) in tasks"
-				:key="el.index"
+				:key="index"
 				class="pt-3">
 				<v-text-field
 					label="카테고리 이름"
@@ -14,12 +13,14 @@
 				>
 				<template v-slot:append>
 					<v-btn
-						v-on:click="delete_item( index )"
+						v-on:click="delete_item( el._id, index )"
 						text
 						color="error"
 					><v-icon>mdi-delete</v-icon></v-btn>
 				</template>
 				</v-text-field>
+
+					{{ el._id }}
 				<nested-draggable :tasks="el.child" />
 			</li>
 		</draggable>
@@ -27,7 +28,6 @@
 </template>
 <script>
 import draggable from 'vuedraggable';
-import Confirm from '~/components/confirm';
 
 export default {
 	props: {
@@ -37,17 +37,12 @@ export default {
 		}
 	},
 	methods: {
-		delete_item (idx) {
-			this.$refs.confirm.set_confirm('delete').then((result) => {
-				if (result) {
-					this.tasks.splice(idx, 1);
-				}
-			});
+		delete_item (idx, arrIdx) {
+			this.$parent.delete_category(idx);
 		}
 	},
 	components: {
-		draggable,
-		Confirm
+		draggable
 	},
 	name: 'nested-draggable'
 };
