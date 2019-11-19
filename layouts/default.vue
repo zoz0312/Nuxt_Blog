@@ -5,17 +5,9 @@
 			fixed
 			app
 		>
-			<v-list>
-				<v-list-item
-					v-for="(item, i) in categorys"
-					:key="i"
-					:to="'/list/'+item._id"
-				>
-					<v-list-item-content>
-						<v-list-item-title v-text="item.title" />
-					</v-list-item-content>
-				</v-list-item>
-			</v-list>
+			<Category
+				:tasks="categories"
+			/>
 		</v-navigation-drawer>
 		<v-app-bar
 			fixed
@@ -52,11 +44,12 @@
 
 <script>
 import '~/mixin/global_mixin'
+import Category from '~/components/nav_category';
 
 export default {
 	data () {
 		return {
-			categorys: {},
+			categories: [],
 			drawer: null
 		}
 	},
@@ -66,16 +59,44 @@ export default {
 	methods: {
 		update_category () {
 			this.$http.post('/category').then((result) => {
-				this.categorys = Object.assign({}, result.data.data);
+				for (let i = 0; i < result.data.data.length; i++) {
+					result.data.data[i].child = [];
+				}
+				result.data.data.sort((a, b) => {
+					return a.parentIdx < b.parentIdx ? -1 : a.parentIdx > b.parentIdx ? 1 : 0;
+				})
+				this.categories = this.parse_client_side(result.data.data);
+				console.log('category', this.categories)
 			}).catch((err) => {
 				console.log('err', err);
 			})
+		},
+		parse_client_side (postData, rtn = []) {
+			const key = Object.keys(postData);
+			for (let i = 0; i < key.length; i++) {
+				const sp = postData[key[i]].parentIdx.split('.');
+				switch (sp.length) {
+				case 1:
+					rtn.push(postData[key[i]]);
+					break;
+				case 2:
+					rtn[sp[0]].child.push(postData[key[i]]);
+					break;
+				case 3:
+					rtn[sp[0]].child[sp[1]].child.push(postData[key[i]]);
+					break;
+				}
+			}
+			return rtn;
 		},
 		logout () {
 			this.$store.dispatch('logout').catch((err) => {
 				console.log('err', err);
 			})
 		}
+	},
+	components: {
+		Category
 	}
 }
 </script>

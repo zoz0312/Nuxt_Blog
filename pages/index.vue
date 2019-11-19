@@ -27,6 +27,10 @@
             :to="'/category/create'"
           >카테고리 생성하기
           </v-btn>
+        </v-card-actions>
+        <v-card-actions
+          v-if="$store.state.authUser === 'admin'">
+          <v-spacer />
           <v-btn
             class="white--text"
             color="#428bca"
