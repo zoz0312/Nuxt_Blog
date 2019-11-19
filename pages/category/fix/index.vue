@@ -44,12 +44,12 @@ export default {
 					return a.parentIdx < b.parentIdx ? -1 : a.parentIdx > b.parentIdx ? 1 : 0;
 				})
 				this.categories = this.parse_client_side(result.data.data);
+				console.log('categories', this.categories)
 			}).catch((err) => {
 				console.log('err', err);
 			})
 		},
 		delete_category (_id) {
-			console.log('parent');
 			this.$refs.confirm.set_confirm('delete').then((result) => {
 				if (result) {
 					this.$http.delete('/category', { data: { _id } }).then((result) => {
@@ -88,18 +88,17 @@ export default {
 			}
 		},
 		parse_client_side (postData, rtn = []) {
-			const key = Object.keys(postData);
-			for (let i = 0; i < key.length; i++) {
-				const sp = postData[key[i]].parentIdx.split('.');
+			for (let i = 0; i < postData.length; i++) {
+				const sp = postData[i].parentIdx.split('.');
 				switch (sp.length) {
 				case 1:
-					rtn.push(postData[key[i]]);
+					rtn.push(postData[i]);
 					break;
 				case 2:
-					rtn[sp[0]].child.push(postData[key[i]]);
+					rtn[sp[0]].child.push(postData[i]);
 					break;
 				case 3:
-					rtn[sp[0]].child[sp[1]].child.push(postData[key[i]]);
+					rtn[sp[0]].child[sp[1]].child.push(postData[i]);
 					break;
 				}
 			}

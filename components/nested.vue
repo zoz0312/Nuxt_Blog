@@ -19,9 +19,10 @@
 					><v-icon>mdi-delete</v-icon></v-btn>
 				</template>
 				</v-text-field>
-
-					{{ el._id }}
-				<nested-draggable :tasks="el.child" />
+				<nested-draggable
+					v-if="el.parentIdx.split('.').length < 3"
+					:tasks="el.child"
+				/>
 			</li>
 		</draggable>
 	</v-card>

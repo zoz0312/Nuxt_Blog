@@ -16,7 +16,7 @@ module.exports = {
 		'nuxt/no-cjs-in-config': 'off',
 		"semi": [1, "always"],
 		"indent": [2, "tab"],
-		"no-tabs": 0,
+		"no-tabs": ["error", { allowIndentationTabs: true }, "tab"],
 		"camelcase": [2, {properties: "never"}]
 	}
 }

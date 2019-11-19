@@ -50,10 +50,14 @@ export default {
 			input_rules: [
 				v => !!v || '카테고리 이름을 입력해주세요.'
 			],
+			last_idx: 0,
 			category: {},
 			dropdown_edit: [{
 				text: '',
-				value: '0'
+				value: {
+					id: 0,
+					parentIdx: '-1'
+				}
 			}]
 		}
 	},
@@ -62,22 +66,25 @@ export default {
 	},
 	methods: {
 		get_category () {
-			let cateObj;
+			let cateArr;
 			let i;
 			this.$http.post('/category').then((result) => {
-				cateObj = Object.assign({}, result.data.data);
-				const key = Object.keys(cateObj);
-				for (i = 0; i < key.length; i++) {
-					this.dropdown_edit.push({
-						text: cateObj[key[i]].title,
-						value: {
-							id: cateObj[key[i]]._id,
-							parentIdx: cateObj[key[i]].parentIdx
+				cateArr = [...result.data.data];
+				for (i = 0; i < cateArr.length; i++) {
+					const spLen = cateArr[i].parentIdx.split('.').length;
+					if (spLen < 3) {
+						if (spLen === 1) {
+							this.last_idx++;
 						}
-					});
-					console.log('i', i)
+						this.dropdown_edit.push({
+							text: cateArr[i].title,
+							value: {
+								id: cateArr[i]._id,
+								parentIdx: cateArr[i].parentIdx
+							}
+						});
+					}
 				}
-				console.log('this.dropdown_edit', this.dropdown_edit);
 			}).catch((err) => {
 				console.log('err', err);
 			})
@@ -87,10 +94,16 @@ export default {
 				this.$refs.alert.set_alert_text('카테고리 이름을 입력해주세요.', 'error');
 				return;
 			}
+			let parentIdx = this.category.parentIdx;
+			if (parentIdx === '-1') {
+				parentIdx = String(this.last_idx);
+			} else {
+				parentIdx += '.0'
+			}
 			const d = {
 				_id: this.propsdata.post ? this.propsdata.post : 0,
 				title: this.title,
-				parentIdx: this.category.parentIdx
+				parentIdx
 			};
 			this.$http.post('/category/' + this.propsdata.type, d).then(() => {
 				this.$refs.alert.set_alert_text('성공적으로 작성되었습니다.', 'success', true);

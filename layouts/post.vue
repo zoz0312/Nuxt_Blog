@@ -39,10 +39,10 @@
 		</v-row>
 		<v-row>
 			<v-col>
-				<img :src="thumbnail"/>
+				<img :src="thumbnail" />
 			</v-col>
 		</v-row>
-		<Editor	ref="editor" />
+		<Editor ref="editor" />
 		<v-hover
 			v-slot:default="{ hover }"
 		>
