@@ -7,6 +7,7 @@ let lib = new libs();
 const postHit = require('../../models/post_hit');
 const writing = require('../../models/post');
 const pageHit = require('../../models/page_hit');
+const category = require('../../models/category');
 
 require('moment-timezone');
 moment.tz.setDefault("Asia/Seoul");
@@ -133,6 +134,19 @@ router.post('/pageHitData', (req, res, next) => {
 		};
 		res.send(lib.rtn_result());
 		res.end();
+	});
+});
+
+router.post('/xml', (req, res, next) => {
+	const xml_map = [];
+	category.find({}, {_id: true}).then(category => {
+		xml_map.push(...category.map(rtn => `/list/${rtn._id}`));
+		return writing.find({}, {_id: true});
+	}).then(posts => {
+		xml_map.push(...posts.map(rtn => `/posts/read/${rtn._id}`));
+		res.send(xml_map);
+	}).catch(err => {
+		res.send(err);
 	});
 });
 module.exports = router;

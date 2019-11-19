@@ -40,7 +40,8 @@ module.exports = {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/sitemap' //Must Last
   ],
   /*
   ** Axios module configuration
@@ -93,5 +94,11 @@ module.exports = {
      */
   },
   serverMiddleware: [
-  ]
+  ],
+  sitemap: {
+    path: '/sitemap.xml',
+    hostname: 'http://blog.zoz0312.com',
+    lastmod: '2019-11-19',
+		routes: ["/list/22","/list/25","/list/37","/list/38","/list/39","/list/46","/list/47","/posts/read/6","/posts/read/18","/posts/read/19","/posts/read/20","/posts/read/21"]
+  }
 }
