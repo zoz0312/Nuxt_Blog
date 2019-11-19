@@ -2,7 +2,6 @@
 	<v-card
     class="mb-5 mr-1 border-line"
   >
-		<Confirm ref="confirm"/>
 		<draggable class="dragArea" tag="ul" :list="tasks" :group="{ name: 'g1' }">
 			<li
 				v-for="(el, index) in tasks"
@@ -30,7 +29,6 @@
 </template>
 <script>
 import draggable from 'vuedraggable';
-import Confirm from '~/components/confirm';
 
 export default {
 	props: {
@@ -46,8 +44,7 @@ export default {
 		}
 	},
 	components: {
-		draggable,
-		Confirm
+		draggable
 	},
 	name: 'nested-draggable'
 };
