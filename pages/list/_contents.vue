@@ -26,7 +26,13 @@ export default {
 	},
 	data () {
 		return {
-			items: {}
+			items: {},
+			title: ''
+		}
+	},
+	head () {
+		return {
+			title: 'AJu Blog - ' + this.title
 		}
 	},
 	mounted () {
@@ -35,7 +41,8 @@ export default {
 	methods: {
 		get_post_list () {
 			this.$http.post('/list/' + this.contents).then((result) => {
-				this.items = result.data.data;
+				this.items = result.data.data.arr;
+				this.title = result.data.data.title;
 			}).catch((err) => {
 				console.log('err', err);
 			});

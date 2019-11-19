@@ -34,10 +34,13 @@ import Prism from 'prismjs'
 import Loader from '~/components/loader'
 
 export default {
-	head: {
-		link: [
-			{ rel: 'stylesheet', href: '/prism.css' }
-		]
+	head () {
+		return {
+			link: [
+				{ rel: 'stylesheet', href: '/prism.css' }
+			],
+			title: 'AJu Blog - ' + this.items.title
+		}
 	},
 	asyncData ({ params }) {
 		return {
@@ -47,7 +50,8 @@ export default {
 	data () {
 		return {
 			items: {},
-			category: ''
+			category: '',
+			title: ''
 		}
 	},
 	mounted () {

@@ -5,10 +5,12 @@ const libs = require('../modules/lib');
 let lib = new libs();
 
 const writing = require('../../models/post');
+const category = require('../../models/category');
 
 router.post('/:contents', (req, res, next) => {
+	const idx = req.params.contents;
 	const findParam = {
-		'categoryId':req.params.contents
+		'categoryId': idx
 	}
 	const projection = {
 		_id: true,
@@ -21,13 +23,20 @@ router.post('/:contents', (req, res, next) => {
 		'_id': -1
 	}
 
-	writing.find(findParam, projection).sort(sortFilter).then(write => {
-		let arr = [];
+	let rtnObj = {
+		title: '',
+		arr: []
+	};
+
+	category.findOne({'_id': idx}, {title: true}).then(cate => {
+		rtnObj.title = cate.title;
+		return writing.find(findParam, projection).sort(sortFilter);
+	}).then(write => {
 		for( let key in write ){
-			arr.push(write[key]);
+			rtnObj.arr.push(write[key]);
 		}
 		lib.rtn = {
-			data: arr,
+			data: rtnObj,
 			success: true,
 			succ_desc: ''
 		}
