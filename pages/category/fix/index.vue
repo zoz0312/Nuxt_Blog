@@ -2,7 +2,7 @@
 	<v-container>
 		<Confirm ref="confirm"/>
 		<h3>카테고리 목록</h3>
-		<nested-draggable :tasks="categories" />
+		<nested-draggable :tasks="{ '_this': this, 'categories': categories }" />
 		<v-card
 			class="mt-4"
 			outlined

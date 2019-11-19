@@ -137,7 +137,7 @@ router.post('/pageHitData', (req, res, next) => {
 	});
 });
 
-router.post('/xml', (req, res, next) => {
+router.get('/xml', (req, res, next) => {
 	const xml_map = [];
 	category.find({}, {_id: true}).then(category => {
 		xml_map.push(...category.map(rtn => `/list/${rtn._id}`));

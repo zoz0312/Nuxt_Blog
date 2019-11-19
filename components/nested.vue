@@ -2,9 +2,9 @@
 	<v-card
     class="mb-5 mr-1 border-line"
   >
-		<draggable class="dragArea" tag="ul" :list="tasks" :group="{ name: 'g1' }">
+		<draggable class="dragArea" tag="ul" :list="tasks.categories" :group="{ name: 'g1' }">
 			<li
-				v-for="(el, index) in tasks"
+				v-for="(el, index) in tasks.categories"
 				:key="index"
 				class="pt-3">
 				<v-text-field
@@ -21,7 +21,7 @@
 				</v-text-field>
 				<nested-draggable
 					v-if="el.parentIdx.split('.').length < 3"
-					:tasks="el.child"
+					:tasks="{ '_this': tasks._this, 'categories': el.child }"
 				/>
 			</li>
 		</draggable>
@@ -34,13 +34,14 @@ export default {
 	props: {
 		tasks: {
 			required: true,
-			type: Array
+			type: Object
 		}
 	},
 	methods: {
 		delete_category (_id) {
 			// TODO
-			this.$root.$children[1].$children[0].$children[2].$children[0].$children[0].delete_category(_id);
+			// this.$root.$children[1].$children[0].$children[2].$children[0].$children[0].delete_category(_id);
+			this.tasks._this.delete_category(_id);
 		}
 	},
 	components: {

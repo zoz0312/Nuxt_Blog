@@ -45,7 +45,6 @@
 <script>
 import '~/mixin/global_mixin'
 import Category from '~/components/nav_category';
-const axios = require('axios')
 
 export default {
 	data () {
@@ -56,13 +55,8 @@ export default {
 	},
 	mounted () {
 		this.update_category();
-		this.test();
 	},
 	methods: {
-		async test () {
-			const { data } = await axios.get('/api/xml');
-			console.log(data)
-		},
 		update_category () {
 			this.$http.post('/category').then((result) => {
 				for (let i = 0; i < result.data.data.length; i++) {
