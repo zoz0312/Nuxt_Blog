@@ -39,7 +39,14 @@ export default {
 			link: [
 				{ rel: 'stylesheet', href: '/prism.css' }
 			],
-			title: 'AJu Blog - ' + this.items.title
+			title: 'AJu Blog - ' + this.items.title,
+			meta: [
+				{
+					hid: 'description',
+					name: 'description',
+					content: 'description'
+				}
+			]
 		}
 	},
 	asyncData ({ params }) {

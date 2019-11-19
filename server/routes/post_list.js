@@ -7,6 +7,24 @@ let lib = new libs();
 const writing = require('../../models/post');
 const category = require('../../models/category');
 
+router.post('/title/:contents', (req, res, next) => {
+	const idx = req.params.contents;
+	category.findOne({'_id': idx}, {title: true}).then(cate => {
+		lib.rtn = {
+			data: cate.title,
+			success: true,
+			succ_desc: ''
+		}
+		res.send(lib.rtn_result());
+		res.end();
+	}).catch(err => {
+		lib.rtn = {
+			err_desc: err
+		}
+		res.send(lib.rtn_result());
+		res.end();
+	});
+});
 router.post('/:contents', (req, res, next) => {
 	const idx = req.params.contents;
 	const findParam = {
@@ -23,20 +41,13 @@ router.post('/:contents', (req, res, next) => {
 		'_id': -1
 	}
 
-	let rtnObj = {
-		title: '',
-		arr: []
-	};
-
-	category.findOne({'_id': idx}, {title: true}).then(cate => {
-		rtnObj.title = cate.title;
-		return writing.find(findParam, projection).sort(sortFilter);
-	}).then(write => {
+	writing.find(findParam, projection).sort(sortFilter).then(write => {
+		let arr = [];
 		for( let key in write ){
-			rtnObj.arr.push(write[key]);
+			arr.push(write[key]);
 		}
 		lib.rtn = {
-			data: rtnObj,
+			data: arr,
 			success: true,
 			succ_desc: ''
 		}
