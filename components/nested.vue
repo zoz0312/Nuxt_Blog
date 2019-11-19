@@ -2,6 +2,7 @@
 	<v-card
     class="mb-5 mr-1 border-line"
   >
+		<Confirm ref="confirm"/>
 		<draggable class="dragArea" tag="ul" :list="tasks" :group="{ name: 'g1' }">
 			<li
 				v-for="(el, index) in tasks"
@@ -13,7 +14,7 @@
 				>
 				<template v-slot:append>
 					<v-btn
-						v-on:click="delete_item( el._id, index )"
+						v-on:click="delete_category( el._id )"
 						text
 						color="error"
 					><v-icon>mdi-delete</v-icon></v-btn>
@@ -29,6 +30,7 @@
 </template>
 <script>
 import draggable from 'vuedraggable';
+import Confirm from '~/components/confirm';
 
 export default {
 	props: {
@@ -38,12 +40,14 @@ export default {
 		}
 	},
 	methods: {
-		delete_item (idx, arrIdx) {
-			this.$parent.delete_category(idx);
+		delete_category (_id) {
+			// TODO
+			this.$root.$children[1].$children[0].$children[2].$children[0].$children[0].delete_category(_id);
 		}
 	},
 	components: {
-		draggable
+		draggable,
+		Confirm
 	},
 	name: 'nested-draggable'
 };

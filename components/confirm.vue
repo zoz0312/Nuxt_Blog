@@ -75,7 +75,8 @@ export default {
 				}
 			});
 		}
-	}
+	},
+	name: 'confirm'
 }
 </script>
 

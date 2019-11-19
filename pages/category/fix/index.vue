@@ -44,7 +44,6 @@ export default {
 					return a.parentIdx < b.parentIdx ? -1 : a.parentIdx > b.parentIdx ? 1 : 0;
 				})
 				this.categories = this.parse_client_side(result.data.data);
-				console.log('categories', this.categories)
 			}).catch((err) => {
 				console.log('err', err);
 			})

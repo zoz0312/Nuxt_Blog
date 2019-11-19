@@ -114,6 +114,7 @@ export default {
 	},
 	components: {
 		Alert
-	}
+	},
+	name: 'CategoryFix'
 }
 </script>
