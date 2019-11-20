@@ -2,7 +2,7 @@
 	<v-container
 		class="text-center">
 		<div
-			v-for="(item, index) in items"
+			v-for="(item, index) in $store.state.list.items"
 			v-bind:key="index"
 			class="d-inline-block"
 		>
@@ -16,24 +16,24 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Card from '../../layouts/card';
 
 export default {
-	asyncData ({ params }) {
-		return {
-			contents: params.contents
-		}
+	async fetch ({ store, params }) {
+		const data = await axios.post('/list/title/' + params.contents);
+		store.commit('list/HTML_TITLE', data.data.data);
+		const data2 = await axios.post('/list/' + params.contents);
+		store.commit('list/SET_ITEMS', data2.data.data);
 	},
 	data () {
 		return {
-			items: {},
-			title: ''
+			items: {}
 		}
 	},
 	head () {
-		const postTitle = this.title ? this.title : '글 목록';
 		return {
-			title: `AJu Blog - ${postTitle}`,
+			title: `${this.$store.state.blogTitle} ${this.$store.state.list.htmlTitle}`,
 			meta: [
 				{
 					hid: 'description',
@@ -41,23 +41,6 @@ export default {
 					content: 'description'
 				}
 			]
-		}
-	},
-	mounted () {
-		this.get_title();
-		this.get_post_list();
-	},
-	methods: {
-		async get_title () {
-			const { data } = await this.$http.post('/list/title/' + this.contents);
-			this.title = data.data;
-		},
-		get_post_list () {
-			this.$http.post('/list/' + this.contents).then((result) => {
-				this.items = result.data.data;
-			}).catch((err) => {
-				console.log('err', err);
-			});
 		}
 	},
 	components: {
