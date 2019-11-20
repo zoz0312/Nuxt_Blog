@@ -5,23 +5,23 @@
 	>
 		<Loader ref="loader"/>
 		<div id="post-category">
-			{{ $store.state.posts.category }}
+			{{ category }}
 		</div>
 		<div id="post-title">
-			{{ $store.state.posts.content.title }}
+			{{ items.title }}
 		</div>
 		<div class="d-flex">
 			<div id="post-writer">
-				{{ $store.state.posts.content.writer }}
+				{{ items.writer }}
 			</div><div id="post-date" class="pb-3 mr-auto">
-				&nbsp;|&nbsp;{{ dateParse($store.state.posts.content.createDate) }}
+				&nbsp;|&nbsp;{{ dateParse(items.createDate) }}
 			</div><div id="post-hit">
-				조회수 : {{ $store.state.posts.content.hitCount }}
+				조회수 : {{ items.hitCount }}
 			</div>
 		</div>
 		<v-divider class="my-5"></v-divider>
 		<div
-			v-html="$store.state.posts.content.content"
+			v-html="items.content"
 			max-width="100%"
 			id="html-text"
 		></div>
@@ -35,16 +35,18 @@ import Prism from 'prismjs'
 import Loader from '~/components/loader'
 
 export default {
-	async fetch ({ store, params }) {
-		const rtn = await axios.post('/post/' + params.post);
-		store.commit('posts/SET_CONTENT', rtn.data.data);
-		const rtn2 = await axios.post('/category/' + rtn.data.data.categoryId);
-		store.commit('posts/SET_CATEGORY', rtn2.data.data.title);
-	},
 	data () {
 		return {
 			items: {},
 			category: ''
+		}
+	},
+	async asyncData ({ params }) {
+		const rtn = await axios.post('/post/' + params.post);
+		const rtn2 = await axios.post('/category/' + rtn.data.data.categoryId);
+		return {
+			items: rtn.data.data,
+			category: rtn2.data.data.title
 		}
 	},
 	head () {
@@ -52,7 +54,7 @@ export default {
 			link: [
 				{ rel: 'stylesheet', href: '/prism.css' }
 			],
-			title: `${this.$store.state.blogTitle} ${this.$store.state.posts.content.title}`,
+			title: `${this.$store.state.blogTitle} ${this.items.title}`,
 			meta: [
 				{
 					hid: 'posts',

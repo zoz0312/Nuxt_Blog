@@ -2,7 +2,7 @@
 	<v-container
 		class="text-center">
 		<div
-			v-for="(item, index) in $store.state.list.items"
+			v-for="(item, index) in items"
 			v-bind:key="index"
 			class="d-inline-block"
 		>
@@ -20,25 +20,28 @@ import axios from 'axios'
 import Card from '../../layouts/card';
 
 export default {
-	async fetch ({ store, params }) {
-		const data = await axios.post('/list/title/' + params.contents);
-		store.commit('list/HTML_TITLE', data.data.data);
-		const data2 = await axios.post('/list/' + params.contents);
-		store.commit('list/SET_ITEMS', data2.data.data);
-	},
 	data () {
 		return {
-			items: {}
+			items: {},
+			title: ''
+		}
+	},
+	async asyncData ({ params }) {
+		const data = await axios.post('/list/title/' + params.contents);
+		const data2 = await axios.post('/list/' + params.contents);
+		return {
+			items: data2.data.data,
+			title: data.data.data
 		}
 	},
 	head () {
 		return {
-			title: `${this.$store.state.blogTitle} ${this.$store.state.list.htmlTitle}`,
+			title: `${this.$store.state.blogTitle} ${this.title}`,
 			meta: [
 				{
 					hid: 'description',
 					name: 'description',
-					content: 'description'
+					content: `${this.title}`
 				}
 			]
 		}

@@ -6,7 +6,7 @@
 			app
 		>
 			<Category
-				:tasks="categories"
+				:tasks="this.$store.state.category.category"
 			/>
 		</v-navigation-drawer>
 		<v-app-bar
@@ -49,7 +49,6 @@ import Category from '~/components/nav_category';
 export default {
 	data () {
 		return {
-			categories: [],
 			drawer: null
 		}
 	},
@@ -65,7 +64,7 @@ export default {
 				result.data.data.sort((a, b) => {
 					return a.parentIdx < b.parentIdx ? -1 : a.parentIdx > b.parentIdx ? 1 : 0;
 				})
-				this.categories = this.parse_client_side(result.data.data);
+				this.$store.commit('category/SET_CATEGORY', this.parse_client_side(result.data.data));
 			}).catch((err) => {
 				console.log('err', err);
 			})

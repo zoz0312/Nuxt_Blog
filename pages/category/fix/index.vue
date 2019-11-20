@@ -43,7 +43,9 @@ export default {
 				result.data.data.sort((a, b) => {
 					return a.parentIdx < b.parentIdx ? -1 : a.parentIdx > b.parentIdx ? 1 : 0;
 				})
-				this.categories = this.parse_client_side(result.data.data);
+				const parseData = this.parse_client_side(result.data.data);
+				this.categories = parseData;
+				this.$store.commit('category/SET_CATEGORY', parseData);
 			}).catch((err) => {
 				console.log('err', err);
 			})
@@ -65,6 +67,7 @@ export default {
 				this.parse_server_side(JSON.parse(JSON.stringify(this.categories)), 0, '0');
 				this.$http.post('/category/update', { post_arr: this.post_arr }).then((result) => {
 					// Alert
+					this.$store.commit('category/SET_CATEGORY', JSON.parse(JSON.stringify(this.categories)));
 				}).catch((err) => {
 					console.log('err', err);
 				})
