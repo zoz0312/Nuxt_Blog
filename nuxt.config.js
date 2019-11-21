@@ -1,3 +1,4 @@
+const axios = require('axios')
 const colors = require('vuetify/es5/util/colors').default
 
 module.exports = {
@@ -104,6 +105,10 @@ module.exports = {
       '/category/**',
       '/posts/create'
     ],
-		routes: ["/list/22","/list/25","/list/37","/list/38","/list/39","/list/46","/list/47","/posts/read/6","/posts/read/18","/posts/read/19","/posts/read/20","/posts/read/21"]
+		routes: async () => {
+      const { data } = await axios.get('http://localhost:3001/xml');
+      return data;
+    }
+    // ["/list/22","/list/25","/list/37","/list/38","/list/39","/list/46","/list/47","/posts/read/6","/posts/read/18","/posts/read/19","/posts/read/20","/posts/read/21"]
   }
 }
