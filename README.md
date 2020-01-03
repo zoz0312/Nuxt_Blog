@@ -2,7 +2,7 @@
 
 > AJu Nuxt Blog
 
-## Environment
+# Environment
 1. Nuxt
 2. MongoDB
 3. XML Blog API > https://github.com/zoz0312/Blog_API

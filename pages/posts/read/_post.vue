@@ -38,7 +38,8 @@ export default {
 	data () {
 		return {
 			items: {},
-			category: ''
+			category: '',
+			postId: 0
 		}
 	},
 	async asyncData ({ params }) {
@@ -46,7 +47,8 @@ export default {
 		const rtn2 = await axios.post('/category/' + rtn.data.data.categoryId);
 		return {
 			items: rtn.data.data,
-			category: rtn2.data.data.title
+			category: rtn2.data.data.title,
+			postId: params.post
 		}
 	},
 	head () {
@@ -65,8 +67,9 @@ export default {
 		}
 	},
 	mounted () {
-		this.$http.post('/api/postHit', { 'postId': this.post }).then(() => {
+		this.$http.post('/api/postHit', { 'postId': this.postId }).then(() => {
 			this.$refs.loader.loader_stop();
+			this.items.hitCount++;
 			Prism.highlightAll();
 		}).catch((err) => {
 			this.$refs.loader.loader_stop();

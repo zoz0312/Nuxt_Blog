@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col>
-			<InfoCard />
+	<InfoCard />
     </v-col>
     <v-col>
       <v-card
