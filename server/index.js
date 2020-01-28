@@ -5,10 +5,11 @@ const mongoose = require('mongoose');
 const app = express();
 
 const bodyParser = require('body-parser');
-const fs = require('file-system');
-const logger = require('morgan');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
+const moment = require('moment');
+require('moment-timezone');
+moment.tz.setDefault("Asia/Seoul");
 
 const server_config = require('/home/ahnhc/config.json');
 const post_middle = require('./modules/post');
@@ -31,10 +32,6 @@ config.dev = process.env.NODE_ENV !== 'production';
 
 /*===== S:Node Modules =====*/
 app.use(bodyParser.json({limit: '10mb', extended: true}));
-app.use(logger(':remote-addr\t - [:date[iso]] ":method" ":url HTTP/:http-version" :status :res[content-length]', {
-  stream: fs.createWriteStream('./access.log', {flags: 'a'})
-}));
-app.use(logger('dev'));
 app.use(session(sess));
 /*===== E:Node Modules =====*/
 
@@ -46,6 +43,10 @@ db.once('open', function(){
 });
 /*===== E:DB Connection =====*/
 
+/*===== S:DB Models =====*/
+const log = require('../models/log');
+/*===== E:DB Models =====*/
+
 /*===== S:Middle Ware =====*/
 app.use(post_middle);
 
@@ -55,6 +56,7 @@ const logout = require('./routes/logout');
 const post_list = require('./routes/post_list');
 const category = require('./routes/category');
 const post = require('./routes/post');
+const route_log = require('./routes/log');
 
 app.use('/api', api);
 app.use('/login', login);
@@ -62,7 +64,68 @@ app.use('/logout', logout);
 app.use('/list', post_list);
 app.use('/category', category);
 app.use('/post', post);
+app.use('/log', route_log);
 /*===== E:Middle Ware =====*/
+
+/*===== S:Access-Control-Allow =====*/
+app.all('*', (req, res, next) => {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE');
+	res.header('Access-Control-Allow-Headers', 'Content-Type');
+	next();
+});
+/*===== E:Access-Control-Allow =====*/
+
+
+/*===== S:Methods Block =====*/
+app.options('*', (req, res, next) => {
+	res.status(404).end();
+	res.end();
+});
+app.head('*', (req, res, next) => {
+	res.status(404).end();
+	res.end();
+});
+/*===== E:Methods Block =====*/
+
+app.get('*', (req, res, next) => {
+	// console.log('GET *', req.session);
+	next();
+});
+
+app.post('*', (req, res, next) => {
+	console.log('post call')
+	next();
+});
+
+app.all('*', (req, res, next) => {
+	res.append('modify', 'Made By zoz0312');
+	const req_url = req.url;
+	if( /favicon.ico|prism.css|__webpack/.test(req_url) ){
+		next();
+	} else {
+		const ip = req.headers['x-forwarded-for'] ||
+			req.connection.remoteAddress ||
+			req.socket.remoteAddress ||
+			req.connection.socket.remoteAddress;
+		let schm_log = new log();
+		schm_log.err = '';
+		schm_log.ip = ip;
+		schm_log.time = moment().format('YYYY-MM-DDTHH:mm:ss');
+		schm_log.url = req_url;
+		schm_log.http_version = req.httpVersion;
+		schm_log.http_method = req.method;
+		schm_log.user_agent = req.headers['user-agent'];
+
+		schm_log.save().then(result => {
+			console.log('result', result);
+			next();
+		}).catch(err => {
+			console.log('err', err);
+			next();
+		});
+	}
+});
 
 async function start () {
   // Init Nuxt.js
@@ -77,50 +140,6 @@ async function start () {
   } else {
     await nuxt.ready();
   }
-
-	/*===== S:Access-Control-Allow =====*/
-  app.all('*', (req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-  });
-	/*===== E:Access-Control-Allow =====*/
-
-
-	/*===== S:Methods Block =====*/
-  app.options('*', (req, res, next) => {
-    res.status(404).end();
-    res.end();
-  });
-	app.head('*', (req, res, next) => {
-		res.status(404).end();
-		res.end();
-	});
-	/*===== E:Methods Block =====*/
-  // const ban_ip = ['201.117.251.50'];
-	app.all('*', (req, res, next) => {
-    res.append('modify', 'Made By zoz0312');
-    // const ip = req.headers['x-forwarded-for'] ||
-    //   req.connection.remoteAddress ||
-    //   req.socket.remoteAddress ||
-    //   req.connection.socket.remoteAddress;
-    // if( ban_ip.indexOf(ip) > -1 ){
-    //   res.status(404).end();
-    // } else {
-    //   next();
-    // }
-    next();
-	});
-
-	app.get('*', (req, res, next) => {
-    // console.log('GET *', req.session);
-		next();
-	});
-
-	app.post('*', (req, res, next) => {
-		next();
-	});
 
   // Give nuxt middleware to express
   app.use(nuxt.render);
