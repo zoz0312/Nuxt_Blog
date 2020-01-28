@@ -101,7 +101,7 @@ app.post('*', (req, res, next) => {
 app.all('*', (req, res, next) => {
 	res.append('modify', 'Made By zoz0312');
 	const req_url = req.url;
-	if( /favicon.ico|prism.css|__webpack/.test(req_url) ){
+	if( /favicon.ico|prism.css|__webpack|\/log/.test(req_url) ){
 		next();
 	} else {
 		const ip = req.headers['x-forwarded-for'] ||
